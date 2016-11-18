@@ -45,4 +45,9 @@ public class Position {
         Position that = (Position) other;
         return this.x == that.x && this.y == that.y;
     }
+
+    @Override
+    public int hashCode(){
+        return 2000 * this.x + y;
+    }
 }

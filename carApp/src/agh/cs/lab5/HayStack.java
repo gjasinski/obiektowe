@@ -20,4 +20,5 @@ public class HayStack {
     public String toString(){
         return "s";
     }
+
 }

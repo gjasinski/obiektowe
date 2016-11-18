@@ -2,16 +2,21 @@ package agh.cs.lab5;
 
 import agh.cs.lab2.Car;
 import agh.cs.lab2.MoveDirection;
+import agh.cs.lab2.Position;
 import agh.cs.lab4.IWorldMap;
+import agh.cs.lab6.IPositionChangeListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by gjasinski on 13.11.16.
  */
-public abstract class AbstractWorldMap implements IWorldMap {
-     protected List<Car> cars = new ArrayList<>();
+public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeListener {
+     //protected List<Car> cars = new ArrayList<>();
+    protected Map<Integer, Car> cars = new HashMap<>();
 
     /**
      * Add a car the map.
@@ -21,16 +26,12 @@ public abstract class AbstractWorldMap implements IWorldMap {
      * @return True if the car was added.
      */
     public void add(Car car) {
-        try {
             if (canMoveTo(car.getPosition())) {
-                cars.add(car);
+                //cars.add(car);
+                cars.put(car.getPosition().hashCode(), car);
             } else {
-                throw new IllegalArgumentException("This field is occupied");
+                throw new IllegalArgumentException("AbstractWorldMap.add - This field is occupied");
             }
-        }
-        catch (IllegalArgumentException ex){
-            System.out.println(ex);
-        }
     }
 
     /**
@@ -41,7 +42,8 @@ public abstract class AbstractWorldMap implements IWorldMap {
      *            Array of move directions.
      */
     public void run(MoveDirection[] directions){
-        int quantityOfCars = cars.size();
+        throw new IllegalArgumentException("AbstractWorldMap.run - not implemented");
+        /*int quantityOfCars = cars.size();
         int i = 0;
         Car iCar;
         for (MoveDirection dir: directions) {
@@ -49,6 +51,12 @@ public abstract class AbstractWorldMap implements IWorldMap {
             iCar.move(dir);
             i++;
             i=i%quantityOfCars;
-        }
+        }*/
+    }
+
+    public void positionChanged(Position oldPosition, Position newPosition){
+        Car car = cars.get(oldPosition.hashCode());
+        cars.remove(oldPosition.hashCode());
+        cars.put(newPosition.hashCode(), car);
     }
 }

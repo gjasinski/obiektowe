@@ -31,15 +31,20 @@ public class CarSystem {
         }
         System.out.println(car);
         */
-        MoveDirection[] directions = OptionsParser.parse(args);
-        //IWorldMap map = new RectangularMap(10, 5);
-        IWorldMap map = new UnboundedMap(4);
-        MapVisualizer mapVisualizer = new MapVisualizer();
-        map.add(new Car(map));
-        map.add(new Car(map,3,4));
-        System.out.println(mapVisualizer.dump(map, new Position(0, 0), new Position(10, 5)));
-        map.run(directions);
-        System.out.println(mapVisualizer.dump(map, new Position(0, 0), new Position(10, 5)));
+        try {
+            MoveDirection[] directions = OptionsParser.parse(args);
+            //IWorldMap map = new RectangularMap(10, 5);
+            IWorldMap map = new UnboundedMap(4);
+            MapVisualizer mapVisualizer = new MapVisualizer();
+            map.add(new Car(map));
+            map.add(new Car(map, 3, 4));
+            System.out.println(mapVisualizer.dump(map, new Position(0, 0), new Position(10, 5)));
+            map.run(directions);
+            System.out.println(mapVisualizer.dump(map, new Position(0, 0), new Position(10, 5)));
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
     }
 
 }

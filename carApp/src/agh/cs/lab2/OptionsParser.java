@@ -9,7 +9,26 @@ public class OptionsParser {
 
     public static MoveDirection[] parse(String[] instructions) {
         ArrayList<MoveDirection> result = new ArrayList<MoveDirection>();
-        int f, b, l, r;
+
+        for(int i = 0; i < instructions.length; i++){
+            switch (instructions[i]){
+                case "f":
+                case "forward": result.add(MoveDirection.Forward);
+                    break;
+                case "b":
+                case "backward": result.add(MoveDirection.Backward);
+                    break;
+                case "l":
+                case "left": result.add(MoveDirection.Left);
+                    break;
+                case "r":
+                case "right": result.add(MoveDirection.Right);
+                    break;
+                default: throw new IllegalArgumentException(instructions[i] + " is not legal move specification");
+            }
+        }
+
+        /*int f, b, l, r;
         f = b = l = r = -1;
         for (int j = 0; j < instructions.length; j++) {
             for (int i = 0; i < instructions[j].length(); i++) {
@@ -69,7 +88,7 @@ public class OptionsParser {
                     }
                 }
             }
-        }
+        }*/
         MoveDirection[] res = new MoveDirection[result.size()];
         for (int i = 0; i < result.size(); i++) {
             res[i] = result.get(i);

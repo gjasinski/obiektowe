@@ -46,10 +46,11 @@ public class RectangularMap extends AbstractWorldMap{
      * @return True if the position is occupied.
      */
     public boolean isOccupied(Position position){
-        for (Car car: cars) {
+        /*for (Car car: cars) {
             if(car.getPosition().equals(position)) return true;
         }
-        return false;
+        return false;*/
+        return (cars.get(position.hashCode()) != null);
     }
 
     /**
@@ -60,9 +61,10 @@ public class RectangularMap extends AbstractWorldMap{
      * @return Object or null if the position is not occupied.
      */
     public Object objectAt(Position position){
-        for (Car car: cars){
+        /*for (Car car: cars){
             if (car.getPosition().equals(position)) return car;
         }
-        return null;
+        return null;*/
+        return cars.get(position.hashCode());
     }
 }

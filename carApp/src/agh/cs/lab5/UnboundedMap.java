@@ -7,19 +7,21 @@ import agh.cs.lab4.IWorldMap;
 import agh.cs.lab4.MapVisualizer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Grzegorz Jasinski on 13.11.16.
  */
 public class UnboundedMap extends AbstractWorldMap {
-    private List<HayStack> stacks = new ArrayList<>();
+    //private List<HayStack> stacks = new ArrayList<>();
+    protected Map<Integer, HayStack> stacks = new HashMap<>();
 
     public UnboundedMap(int quantityOfHayStacks){
         add(new HayStack(new Position(-4, -4)));
         add(new HayStack(new Position(7, 7)));
         add(new HayStack(new Position(3, 6)));
-        add(new HayStack(new Position(2, 0)));
         add(new HayStack(new Position(2, 0)));
     }
 
@@ -44,13 +46,17 @@ public class UnboundedMap extends AbstractWorldMap {
      * @return True if the position is occupied.
      */
     public boolean isOccupied(Position position){
-        for (Car car: cars) {
+        /*for (Car car: cars) {
             if(car.getPosition().equals(position)) return true;
         }
         for (HayStack hayStack: stacks) {
             if(hayStack.getPosition().equals(position)) return true;
         }
-        return false;
+        return false;*/
+        if(cars.get(position.hashCode()) != null){
+            return true;
+        }
+        return stacks.get(position.hashCode()) != null;
     }
 
     /**
@@ -61,19 +67,14 @@ public class UnboundedMap extends AbstractWorldMap {
      * @return True if the car was added.
      */
     public void add(HayStack stack){
-        try{
-            {            if(canMoveTo(stack.getPosition())){
-                stacks.add(stack);
+        if(canMoveTo(stack.getPosition())){
+                stacks.put(stack.getPosition().hashCode(), stack);
             }
             else{
-                throw new IllegalArgumentException("This field is occupied");
+                throw new IllegalArgumentException("UnboundedMap.add - This field is occupied");
             }
-        }
-        }
-        catch(IllegalArgumentException ex){
-            System.out.println(ex);
-        }
     }
+
     /**
      * Return object at given position.
      *
@@ -82,12 +83,16 @@ public class UnboundedMap extends AbstractWorldMap {
      * @return Object or null if the position is not occupied.
      */
     public Object objectAt(Position position){
-        for (Car car: cars){
+        /*for (Car car: cars){
             if (car.getPosition().equals(position)) return car;
         }
         for (HayStack hayStack: stacks) {
             if(hayStack.getPosition().equals(position)) return hayStack;
         }
-        return null;
+        return null;*/
+        if (cars.get(position.hashCode()) != null){
+            return cars.get(position.hashCode());
+        }
+        return stacks.get(position.hashCode());
     }
 }
