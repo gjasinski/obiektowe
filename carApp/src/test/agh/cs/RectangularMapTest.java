@@ -42,6 +42,7 @@ public class RectangularMapTest {
         map.add(car2);
         map.run(directions);
         System.out.print(car1.getPosition());
+        System.out.print(car2.getPosition());
         assertTrue(new Position(2,0).equals(car1.getPosition()));
         assertTrue(new Position(3,5).equals(car2.getPosition()));
     }
