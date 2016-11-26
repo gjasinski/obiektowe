@@ -42,7 +42,7 @@ public class CarSystem {
             map.run(directions);
             System.out.println(mapVisualizer.dump(map, new Position(0, 0), new Position(10, 5)));
         }
-        catch (Exception ex){
+        catch (IllegalArgumentException ex){
             System.out.println(ex);
         }
     }

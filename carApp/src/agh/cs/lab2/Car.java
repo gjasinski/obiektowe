@@ -1,12 +1,18 @@
 package agh.cs.lab2;
 
 import agh.cs.lab4.IWorldMap;
+import agh.cs.lab6.AbstractWorldMapElement;
+import agh.cs.lab6.IPositionChangeListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by gjasinski on 04.11.16.
  */
-public class Car {
-    private Position position;
+public class Car extends AbstractWorldMapElement{
+    //private Position position;
+    private List<IPositionChangeListener> listeners =  new ArrayList<>();
     private MapDirection md;
     private IWorldMap iMap;
 
@@ -83,9 +89,19 @@ public class Car {
         }
     }
 
-
-    public Position getPosition(){
-        return this.position;
+    public void addListner(IPositionChangeListener listener){
+        listeners.add(listener);
     }
+
+    public void removeListener(IPositionChangeListener listener){
+        listeners.remove(listeners.indexOf(listener));
+    }
+
+    public void positionChanged(){
+
+    }
+/*    public Position getPosition(){
+        return this.position;
+    }*/
 
 }

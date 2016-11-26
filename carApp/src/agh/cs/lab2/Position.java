@@ -48,6 +48,6 @@ public class Position {
 
     @Override
     public int hashCode(){
-        return 2000 * this.x + y;
+        return 2000 * this.x + this.y;
     }
 }

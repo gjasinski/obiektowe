@@ -22,3 +22,7 @@
     - abstract
     - w intefejsie default od java 8.0 domyślna implementacja interfejsu, nie można deklarować pól
   - jeżeli zachowanie obiektu może byc różne zacząć od kompozycji
+
+22.11.2016 - wyjąkti
+  - try catch finally
+  - 

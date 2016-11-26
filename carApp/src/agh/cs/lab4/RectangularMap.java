@@ -1,12 +1,7 @@
 package agh.cs.lab4;
 
-import agh.cs.lab2.MoveDirection;
 import agh.cs.lab2.Position;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import agh.cs.lab2.Car;
 import agh.cs.lab5.AbstractWorldMap;
 
 /**
@@ -46,11 +41,11 @@ public class RectangularMap extends AbstractWorldMap{
      * @return True if the position is occupied.
      */
     public boolean isOccupied(Position position){
-        /*for (Car car: cars) {
+        /*for (Car car: mapElement) {
             if(car.getPosition().equals(position)) return true;
         }
         return false;*/
-        return (cars.get(position.hashCode()) != null);
+        return (mapElement.get(position) != null);
     }
 
     /**
@@ -61,10 +56,10 @@ public class RectangularMap extends AbstractWorldMap{
      * @return Object or null if the position is not occupied.
      */
     public Object objectAt(Position position){
-        /*for (Car car: cars){
+        /*for (Car car: mapElement){
             if (car.getPosition().equals(position)) return car;
         }
         return null;*/
-        return cars.get(position.hashCode());
+        return mapElement.get(position);
     }
 }

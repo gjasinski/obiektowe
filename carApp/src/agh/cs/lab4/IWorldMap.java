@@ -32,7 +32,7 @@ public interface IWorldMap {
 
 
     /**
-     * Move the cars on the map according to the provided move directions. Every
+     * Move the mapElement on the map according to the provided move directions. Every
      * n-th direction should be sent the n-th car on the map.
      *
      * @param directions
