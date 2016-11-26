@@ -11,7 +11,6 @@ import java.util.List;
  * Created by gjasinski on 04.11.16.
  */
 public class Car extends AbstractWorldMapElement{
-    //private Position position;
     private List<IPositionChangeListener> listeners =  new ArrayList<>();
     private MapDirection md;
     private IWorldMap iMap;
@@ -100,8 +99,6 @@ public class Car extends AbstractWorldMapElement{
     public void positionChanged(){
 
     }
-/*    public Position getPosition(){
-        return this.position;
-    }*/
+
 
 }

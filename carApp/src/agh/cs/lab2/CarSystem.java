@@ -18,19 +18,7 @@ import static java.lang.System.out;
 public class CarSystem {
 
     public static void main(String[] args) {
-        /*
-        Car car = new Car();
-        ArrayList<MoveDirection> instructions = new ArrayList<MoveDirection>();
-        //instructions = OptionsParser.parse(args[1]);
-        Scanner sc = new Scanner(System.in);
-        instructions = OptionsParser.parse(sc.nextLine());
-        sc.close();
-        System.out.println(car);
-        for(MoveDirection moveDirection : instructions){
-            car.move(moveDirection);
-        }
-        System.out.println(car);
-        */
+
         try {
             MoveDirection[] directions = OptionsParser.parse(args);
             //IWorldMap map = new RectangularMap(10, 5);
@@ -38,9 +26,9 @@ public class CarSystem {
             MapVisualizer mapVisualizer = new MapVisualizer();
             map.add(new Car(map));
             map.add(new Car(map, 3, 4));
-            System.out.println(mapVisualizer.dump(map, new Position(0, 0), new Position(10, 5)));
+            System.out.println(mapVisualizer.dump(map, new Position(-10, -10), new Position(10, 10)));
             map.run(directions);
-            System.out.println(mapVisualizer.dump(map, new Position(0, 0), new Position(10, 5)));
+            System.out.println(mapVisualizer.dump(map, new Position(-10, -10), new Position(10, 10)));
         }
         catch (IllegalArgumentException ex){
             System.out.println(ex);

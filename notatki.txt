@@ -25,4 +25,17 @@
 
 22.11.2016 - wyjąkti
   - try catch finally
-  - 
+  -
+25.11.2016 -
+  za tydzień:
+    - szkic, przedstawić koncepcję jak chce się rozwiązać problem, jakie klasy, jakie metody
+    - można zmienić to co się zrobiło, ale nie można wszyskiego zmienić
+    - oddanie w terminie szkicu 1 pkt, program działający w terminie to 3 pkt trzeba mieć tesy, wyjątki i wszysko musi byc ok
+    - rozwiązanie w terminie na gicie
+
+  Wzorce projektowe(design pattern)
+    - MVC
+    - singleton - antywzorzec, program staje się trudno testowalny
+            (ciężko jest podmienic w testacj)
+    - wzorzec observer -
+    -

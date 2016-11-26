@@ -40,14 +40,14 @@ public class RectangularMapTest {
         String [] s1 = new String [1];
         s1[0]="f b r l f f r r f f f f f f f f";
         MoveDirection[] directions = new OptionsParser().parse(s1);
-        IWorldMap map = new UnboundedMap(4);
+        IWorldMap map = new RectangularMap(10, 5);
         Car car1 = new Car(map);
         Car car2 = new Car(map,3,4);
         map.add(car1);
         map.add(car2);
         map.run(directions);
         System.out.print(car1.getPosition());
-        assertTrue(new Position(2,1).equals(car1.getPosition()));
+        assertTrue(new Position(2,0).equals(car1.getPosition()));
         assertTrue(new Position(3,5).equals(car2.getPosition()));
     }
 

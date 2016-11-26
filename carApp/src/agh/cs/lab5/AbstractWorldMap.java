@@ -49,11 +49,11 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeList
         int quantityOfCars = cars.size();
         int i = 0;
         Car iCar;
-        MapVisualizer mapVisualizer = new MapVisualizer();
         for (MoveDirection dir: directions) {
-            System.out.println(mapVisualizer.dump(this, new Position(0, 0), new Position(10, 5)));
             iCar = cars.get(i);
+            this.mapElement.remove(iCar.getPosition());
             iCar.move(dir);
+            this.mapElement.put(iCar.getPosition(), iCar);
             i++;
             i=i%quantityOfCars;
         }
