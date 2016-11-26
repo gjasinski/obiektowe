@@ -1,8 +1,9 @@
 package agh.cs.lab2;
 
 import agh.cs.lab4.IWorldMap;
+import agh.cs.lab5.AbstractWorldMap;
 import agh.cs.lab6.AbstractWorldMapElement;
-import agh.cs.lab6.IPositionChangeListener;
+import agh.cs.lab7.IPositionChangeListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +25,14 @@ public class Car extends AbstractWorldMapElement{
         this.position = new Position(2,2);
         this.md = MapDirection.North;
         this.iMap = map;
+        addListener((AbstractWorldMap)map); //Is it correct?
     }
 
     public Car(IWorldMap map, int x, int y){
         this.position = new Position(x,y);
         this.md = MapDirection.North;
         this.iMap = map;
+        addListener((AbstractWorldMap)map); //Is it correct?
     }
 
     @Override
@@ -65,15 +68,20 @@ public class Car extends AbstractWorldMapElement{
     }
 
     public void move(MoveDirection direction){
+        Position oldPosition;
         switch (direction){
             case Forward:
                 if(this.iMap.canMoveTo(position.add(getVector(this.md)))) {
+                    oldPosition = this.position;
                     this.position = position.add(getVector(this.md));
+                    positionChanged(oldPosition, this.position);
                 }
                 break;
             case Backward:
                 if(this.iMap.canMoveTo(position.add(getVector(this.md)))){
+                    oldPosition = this.position;
                     this.position = position.add(getVector(this.md).reverse());
+                    positionChanged(oldPosition, this.position);
                 }
                 break;
             case Left:
@@ -88,15 +96,19 @@ public class Car extends AbstractWorldMapElement{
         }
     }
 
-    public void addListner(IPositionChangeListener listener){
+    private void addListener(IPositionChangeListener listener){
         listeners.add(listener);
     }
 
+    //It's not used, since we don't destroy cars.
     public void removeListener(IPositionChangeListener listener){
         listeners.remove(listeners.indexOf(listener));
     }
 
-    public void positionChanged(){
+    private void positionChanged(Position oldPosition, Position newPosition){
+        for (IPositionChangeListener listener: listeners) {
+            listener.positionChanged(oldPosition, newPosition);
+        }
 
     }
 

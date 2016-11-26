@@ -30,24 +30,6 @@ public class RectangularMap extends AbstractWorldMap{
         return !isOccupied(position);
     }
 
-
-    /**
-     * Returns true if given position on the map is occupied. Should not be
-     * confused with canMove since there might be empty positions where the car
-     * cannot move.
-     *
-     * @param position
-     *            Position to check.
-     * @return True if the position is occupied.
-     */
-    public boolean isOccupied(Position position){
-        /*for (Car car: mapElement) {
-            if(car.getPosition().equals(position)) return true;
-        }
-        return false;*/
-        return (mapElement.get(position) != null);
-    }
-
     /**
      * Return object at given position.
      *
@@ -56,10 +38,6 @@ public class RectangularMap extends AbstractWorldMap{
      * @return Object or null if the position is not occupied.
      */
     public Object objectAt(Position position){
-        /*for (Car car: mapElement){
-            if (car.getPosition().equals(position)) return car;
-        }
-        return null;*/
         return mapElement.get(position);
     }
 }

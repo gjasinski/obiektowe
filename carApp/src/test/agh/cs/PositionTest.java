@@ -1,16 +1,19 @@
-package agh.cs.lab2;
+package test.agh.cs;
 
+import agh.cs.lab2.Position;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 /**
- * Created by gjasinski on 13.11.16.
+ * Created by Grzegorz Jasinski on 13.11.16.
  */
+
 public class PositionTest {
     @Test
     public void testToString(){
-        assertEquals("(1,2)", new Position(1,2).toString());
+        Assert.assertEquals("(1,2)", new Position(1,2).toString());
     }
 
     @Test
