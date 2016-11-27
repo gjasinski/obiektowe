@@ -1,0 +1,8 @@
+# obiektowe
+*/
+Obiektowe
+/*
+
+/*
+obiektowe
+*/
