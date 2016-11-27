@@ -63,6 +63,7 @@
 4. class Section extends Article
 
   - Lista artykułów
+  
   private articles
 
   - Konstruktor przyjmuje jako argument treść rozdziału
@@ -75,6 +76,7 @@
   private divideIntoArticles
 
   - Nadpisanie funkcji
+  
   public String toString()
 
 5. class Preabule extends Section
