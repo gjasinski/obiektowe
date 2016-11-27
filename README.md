@@ -1,8 +1,1 @@
 # obiektowe
-*/
-Obiektowe
-/*
-
-/*
-obiektowe
-*/
