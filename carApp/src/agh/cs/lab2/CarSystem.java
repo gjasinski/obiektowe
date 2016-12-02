@@ -22,10 +22,7 @@ public class CarSystem {
         try {
             MoveDirection[] directions = OptionsParser.parse(args);
             MapVisualizer mapVisualizer = new MapVisualizer();
-
             //IWorldMap map = new RectangularMap(10, 5);
-
-
             LinkedList<HayStack> stacks = new LinkedList<>();
             stacks.add(new HayStack(new Position(-4, -4)));
             stacks.add(new HayStack(new Position(7, 7)));
