@@ -1,4 +1,4 @@
-package agh.cs;
+package src.agh.cs;
 
 /**
  * Created by Grzegorz Jasinski on 02.12.16.
@@ -21,6 +21,7 @@ public class InputParser {
             if(input.length == 2){
                 this.showSection = true;
             }else{
+                this.showSection = false;
                 this.lastArticleNumber = Integer.parseInt(input[2]);
             }
         }catch (NumberFormatException ex){

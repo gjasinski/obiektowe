@@ -1,4 +1,4 @@
-package agh.cs;
+package src.agh.cs;
 
 import java.io.BufferedReader;
 import java.io.IOError;
@@ -29,7 +29,7 @@ public class TextParser {
                     .map(s -> {
                         int length = s.length() - 1;
                         if(s.charAt(length) == '-'){
-                            s = s.substring(0, length - 1);
+                            s = s.substring(0, length);
                         }else{
                             if((s.charAt(length) == ',' || s.charAt(length) != '.') && !Character.isUpperCase(s.charAt(length))){
                                 s = s + " ";
@@ -43,7 +43,8 @@ public class TextParser {
                     .collect(Collectors.joining());
         }catch (IOException ex){
             System.out.println(ex.toString());
-            // TODO: 02.12.16 sharpen exceptions! 
+            // TODO: 02.12.16 sharpen exceptions! Wyjątki obsługi plików!
+            // TODO: 05.12.16  Dodać rozdzielanie 1) 2)...
         }
     }
 
