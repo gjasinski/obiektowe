@@ -47,11 +47,19 @@ public class Constitution {
     }
 
     public String toString(int section){
+        if(section < 0 || section > this.sectionList.size()){
+            throw new IllegalArgumentException("Section number is not correct. Type section from 0 - " + this.sectionList.size());
+        }
+
         if(section == 0) return this.title + "\n" + this.preamble.toString();
         else return this.sectionList.get(section - 1).toString();
     }
 
     public String toString(int firstArticleNo, int lastArticleNo){
+        if(firstArticleNo < 1 || lastArticleNo > this.articlesList.size() || firstArticleNo > lastArticleNo){
+            throw new IllegalArgumentException("Article numbers are not correct. Type articles from 1 - " + this.articlesList.size() + " and firstArticle < lastArticle.");
+        }
+
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(this.articleInSectionList.get(firstArticleNo - 1).getTitle());
         stringBuilder.append("\n");
@@ -59,6 +67,7 @@ public class Constitution {
         for(int i = firstArticleNo - 1; i < lastArticleNo; i++){
             if(!previousSection.isEqual(this.articleInSectionList.get(i))){
                 previousSection = this.articleInSectionList.get(i);
+                stringBuilder.append(("\n"));
                 stringBuilder.append(previousSection.getTitle());
                 stringBuilder.append("\n");
             }

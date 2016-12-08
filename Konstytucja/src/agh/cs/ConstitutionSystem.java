@@ -1,5 +1,7 @@
 package src.agh.cs;
 
+import java.io.IOException;
+
 /**
  * Created by Grzegorz Jasinski on 03.12.16.
  */
@@ -17,6 +19,9 @@ public class ConstitutionSystem {
                 System.out.print(constitution.toString(inputParser.getFirstArticleNumber(), inputParser.getLastArticleNumber()));
             }
         }catch (IllegalArgumentException ex){
+            System.out.print(ex.toString());
+        }
+        catch (IOException ex){
             System.out.print(ex.toString());
         }
 

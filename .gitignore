@@ -4,7 +4,7 @@
 */.idea/*
 *.iml
 *.xml
-
+*/out/*
 
 ### Intellij ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm

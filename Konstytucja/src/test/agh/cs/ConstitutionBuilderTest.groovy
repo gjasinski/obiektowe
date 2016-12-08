@@ -32,22 +32,22 @@ class ConstitutionBuilderTest extends GroovyTestCase {
     }
 
     void testTitleOfConstitution(){
-        def constitution = buildConstitution()
-        assertEquals("KONSTYTUCJA\n" +
+        def constitution = buildConstitution("TextParserTests/KonstytucjaOriginal.txt")
+        assert"KONSTYTUCJA\n" +
                 "RZECZYPOSPOLITEJ POLSKIEJ\n" +
-                "z dnia 2 kwietnia 1997 r.", constitution.getTitleOfConstitution)
+                "z dnia 2 kwietnia 1997 r." == constitution.getTitleOfConstitution
     }
 
-    void testPreamble(){
+    /*void testPreamble(){
         def constitution = buildConstitution("TextParserTests/Konstytucja.txt")
         def parsedConstitution = parseConstitution("TextParserTests/Konstytucja.txt")
-        assertEquals(parsedConstitution.substring(0, parseConstitution().indexOf("Rozdział")), constitution.toString(0))
-    }
+        assert parsedConstitution.substring(0, parsedConstitution.indexOf("Rozdział")) == constitution.toString(0)
+    }*/
 
     void testConstitution(){
         def constitution = buildConstitution("TextParserTests/KonstytucjaOriginal.txt")
         def parsedConstitution = parseConstitution("TextParserTests/KonstytucjaOriginal.txt")
         parsedConstitution = parsedConstitution.replace("wspólnot.\n", "wspólnot. ")
-        assertEquals(parsedConstitution, constitution.toString())
+        assert parsedConstitution == constitution.toString()
     }
 }

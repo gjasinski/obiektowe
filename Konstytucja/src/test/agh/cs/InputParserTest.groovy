@@ -7,7 +7,6 @@ import src.agh.cs.InputParser
  */
 class InputParserTest extends GroovyTestCase {
 
-    @Test
     void testGetFileLocalization(){
         def input = new String[3]
         input[0] = "Konstytucja.txt"
@@ -21,7 +20,6 @@ class InputParserTest extends GroovyTestCase {
         assert "dira/dirb/dirc/aaaa/test.txt" == inputParser.getFileLocalization()
     }
 
-    @Test
     void testGetSectionNumber(){
         def input = new String[2]
         input[0] = "Konstytucja.txt "
@@ -31,7 +29,6 @@ class InputParserTest extends GroovyTestCase {
         assert 12 == inputParser.getSectionNumber()
     }
 
-    @Test
     void testGetArticleNumbers(){
         def input = new String[3]
         input[0] = "Konstytucja.txt"
@@ -42,7 +39,6 @@ class InputParserTest extends GroovyTestCase {
         assert 20 == inputParser.getLastArticleNumber()
     }
 
-    @Test
     void testShowSection(){
         try {
             def input = new String[3]

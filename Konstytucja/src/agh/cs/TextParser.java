@@ -1,5 +1,7 @@
 package src.agh.cs;
 
+import org.apache.bsf.util.StringUtils;
+
 import java.io.BufferedReader;
 import java.io.IOError;
 import java.io.IOException;
@@ -18,7 +20,7 @@ import java.util.stream.Stream;
 public class TextParser {
     private String parsedText;
 
-    public TextParser(String fileDir){
+    public TextParser(String fileDir) throws IOException{
         String constText1 = "Kancelaria Sejmu";
         String constText2 = "2009-11-16";
 
@@ -37,18 +39,28 @@ public class TextParser {
                                 s = s + "\n";
                             }
                         }
+                        if(s.contains(")") && isNumeric(s.substring(0, s.indexOf(")")))){
+                            s = "\n  " + s;
+                        }
+
                         return s;
                         }
                     )
                     .collect(Collectors.joining());
-        }catch (IOException ex){
-            System.out.println(ex.toString());
-            // TODO: 02.12.16 sharpen exceptions! Wyjątki obsługi plików!
             // TODO: 05.12.16  Dodać rozdzielanie 1) 2)...
         }
     }
 
     public String getParsedText(){
         return this.parsedText;
+    }
+
+    private boolean isNumeric(String s){
+        for(int i = 0; i < s.length(); i++){
+            if(!Character.isDigit(s.charAt(i))){
+                return false;
+            }
+        }
+        return true;
     }
 }

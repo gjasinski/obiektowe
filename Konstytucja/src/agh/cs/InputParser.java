@@ -29,7 +29,6 @@ public class InputParser {
         }
     }
 
-
     public String getFileLocalization(){
         return this.fileLocalization;
     }
