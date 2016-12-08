@@ -18,12 +18,8 @@ public class ConstitutionSystem {
             }else{
                 System.out.print(constitution.toString(inputParser.getFirstArticleNumber(), inputParser.getLastArticleNumber()));
             }
-        }catch (IllegalArgumentException ex){
+        }catch (IllegalArgumentException | IOException | IndexOutOfBoundsException ex){
             System.out.print(ex.toString());
         }
-        catch (IOException ex){
-            System.out.print(ex.toString());
-        }
-
     }
 }

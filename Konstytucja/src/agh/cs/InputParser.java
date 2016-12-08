@@ -15,8 +15,12 @@ public class InputParser {
         if(input.length < 2 || input.length > 3){
             throw new IllegalArgumentException("Not enough/too many arguments. Number of arguments: " + input.length);
         }
-        try{
+        if(!input[0].contains(".txt")){
+            throw new IllegalArgumentException("Invalid file extension.");
+        }else{
             this.fileLocalization = input[0].substring(0, input[0].indexOf(".txt")+4);
+        }
+        try{
             this.firstArticleNumber = this.sectionNumber = Integer.parseInt(input[1]);
             if(input.length == 2){
                 this.showSection = true;
@@ -25,7 +29,7 @@ public class InputParser {
                 this.lastArticleNumber = Integer.parseInt(input[2]);
             }
         }catch (NumberFormatException ex){
-            throw new IllegalArgumentException("Wrong arguments. Arguments should be directory number1 number2(optional)", ex);
+            throw new IllegalArgumentException("Invalid arguments. Arguments should be directory number1 number2(optional)", ex);
         }
     }
 

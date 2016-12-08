@@ -47,7 +47,6 @@ public class TextParser {
                         }
                     )
                     .collect(Collectors.joining());
-            // TODO: 05.12.16  Dodać rozdzielanie 1) 2)...
         }
     }
 
