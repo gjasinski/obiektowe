@@ -1,6 +1,5 @@
 package src.agh.cs;
 
-import javafx.beans.binding.StringBinding;
 
 import java.util.ArrayList;
 
