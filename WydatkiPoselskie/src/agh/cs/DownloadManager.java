@@ -1,5 +1,6 @@
 package agh.cs;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,5 +23,9 @@ public class DownloadManager {
             stringBuilder.append(line);
         }
         return stringBuilder.toString();
+    }
+
+    public String downloadPoliticianTravelsAndExpensesJson(int politicianId) throws IOException{
+        return downloadJson(new URL("https://api-v3.mojepanstwo.pl/dane/poslowie/" + politicianId + ".json?layers[]=wyjazdy&layers[]=wydatki"));
     }
 }
