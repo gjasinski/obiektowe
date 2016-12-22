@@ -1,12 +1,8 @@
 package agh.cs;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.HashMap;
 
-/**
- * Created by Grzegorz Jasinski on 20.12.16.
- */
 public class Expenses {
     private HashMap<Integer, BigDecimal> expensesMap;
     private int year;
@@ -21,7 +17,7 @@ public class Expenses {
     }
 
     public void addExpense(String title, String value) {
-        int id = this.expensesTitles.getOrSetExpenseTitleId(title);
+        int id = this.expensesTitles.setExpenseTitleId(title);
         if (this.expensesMap.containsKey(id)) {
             this.sumOfExpenses = this.sumOfExpenses.subtract(this.expensesMap.get(id));
         }
@@ -32,5 +28,15 @@ public class Expenses {
 
     public BigDecimal getSumOfExpenses(){
         return this.sumOfExpenses;
+    }
+
+    public BigDecimal getExpensesForSmallRepairsOfPoliticianOffice(){
+        int expenseId = this.expensesTitles.getExpenseTitle("Koszty drobnych napraw i remontów lokalu biura poselskiego");
+        if(expenseId == -1){
+            return BigDecimal.ZERO;
+        }
+        else{
+            return this.expensesMap.get(expenseId);
+        }
     }
 }

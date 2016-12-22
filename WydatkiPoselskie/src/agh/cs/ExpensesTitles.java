@@ -2,9 +2,6 @@ package agh.cs;
 
 import java.util.HashMap;
 
-/**
- * Created by Grzegorz Jasinski on 20.12.16.
- */
 public class ExpensesTitles {
     private HashMap<String, Integer> expensesTitles;
 
@@ -12,7 +9,7 @@ public class ExpensesTitles {
         this.expensesTitles = new HashMap<>();
     }
 
-    public int getOrSetExpenseTitleId(String title) {
+    public int setExpenseTitleId(String title) {
         if(this.expensesTitles.containsKey(title)){
             return this.expensesTitles.get(title);
         }else{
@@ -20,5 +17,9 @@ public class ExpensesTitles {
             this.expensesTitles.put(title, id);
             return id;
         }
+    }
+
+    public int getExpenseTitle(String title) {
+        return this.expensesTitles.get(title);
     }
 }

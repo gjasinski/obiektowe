@@ -12,7 +12,8 @@ import java.util.Map;
  * Created by Grzegorz Jasinski on 16.12.16.
  */
 public class CreateParliament {
-    private HashMap<Integer, Politician> politicianMap;
+    private HashMap<Integer, Politician> politicianHashMap;
+    private HashMap<String, Integer> politicianLastNameFirstNameHashMap;
     private ExpensesTitles expensesTitles;
 
 
@@ -21,7 +22,8 @@ public class CreateParliament {
         URL jsonUrl = new URL("https://api-v3.mojepanstwo.pl/dane/poslowie.json");
         expensesTitles = new ExpensesTitles();
         DownloadManager downloadManager = new DownloadManager();
-        this.politicianMap = new HashMap<>();
+        this.politicianHashMap = new HashMap<>();
+        this.politicianLastNameFirstNameHashMap = new HashMap<>();
         String downloadedJsonData;
         JsonPoliticians jsonPoliticians;
         JSONArray jsonArray;
@@ -44,7 +46,8 @@ public class CreateParliament {
             politicianRecord = jsonArray.getJSONObject(i);
             politicianDetails = politicianRecord.getJSONObject("data");
             Politician politician = new Politician(politicianRecord.getInt("id"), politicianDetails.getString("poslowie.nazwa_odwrocona"));
-            this.politicianMap.put(politicianRecord.getInt("id"), politician);
+            this.politicianHashMap.put(politicianRecord.getInt("id"), politician);
+            this.politicianLastNameFirstNameHashMap.put(politician.getLastNameFirstName(), politician.getId());
         }
     }
 
@@ -54,7 +57,7 @@ public class CreateParliament {
         JsonTrips jsonTrips;
         JSONObject jsonObject;
 
-        for(Map.Entry<Integer, Politician> entry : this.politicianMap.entrySet()){
+        for(Map.Entry<Integer, Politician> entry : this.politicianHashMap.entrySet()){
             String politicianDetails = downloadManager.downloadPoliticianTravelsAndExpensesJson(entry.getKey());
             jsonObject = new JSONObject(politicianDetails).getJSONObject("layers");
             jsonExpenses = new JsonExpenses(entry.getValue(), jsonObject.getJSONObject("wydatki"), this.expensesTitles);
@@ -69,17 +72,21 @@ public class CreateParliament {
         }
     }
 
-    public HashMap<Integer, Politician> getParliment(){
-        return this.politicianMap;
+    public HashMap<Integer, Politician> getParlimentHashMap(){
+        return this.politicianHashMap;
+    }
+
+    public HashMap<String, Integer> getPoliticianLastNameFirstNameHashMap(){
+        return this.politicianLastNameFirstNameHashMap;
     }
 
     @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
-        for(Map.Entry<Integer, Politician> entry : this.politicianMap.entrySet()){
+        for(Map.Entry<Integer, Politician> entry : this.politicianHashMap.entrySet()){
             stringBuilder.append(entry.getValue().toString());
             stringBuilder.append("\n");
         }
-        return stringBuilder.toString()+" "+this.politicianMap.size();
+        return stringBuilder.toString()+" "+this.politicianHashMap.size();
     }
 }

@@ -46,6 +46,15 @@ public class PoliticsSystem {
             CreateParliament createParliament = new CreateParliament();
             System.out.print(createParliament.toString());
             createParliament.updatePoliticiansProfile();
+            ParliamentGetInformations parliamentGetInformations = new ParliamentGetInformations(createParliament.getParlimentHashMap(), createParliament.getPoliticianLastNameFirstNameHashMap());
+            System.out.println(parliamentGetInformations.getPoliticianSumOfAllExpenses("Górczyński Jarosław"));
+            System.out.println(parliamentGetInformations.getPoliticianAllExpensesForSmallRepairsOfPoliticianOffice("Górczyński Jarosław"));
+            System.out.println(parliamentGetInformations.getPoliticiansAverageSumOfAllExpenses());
+            System.out.println(parliamentGetInformations.getPoliticianIdWhoTravelsMost());
+            System.out.println(parliamentGetInformations.getPoliticianIdWithTheLongestTrip());
+            System.out.println(parliamentGetInformations.getPoliticianIdWithTheMostExpensiveTrip());
+            System.out.println(parliamentGetInformations.getListOfPoliticiansWhoHadBeenInItaly().toString());
+
 
         }catch (Exception e){
             System.out.print(e.toString());
