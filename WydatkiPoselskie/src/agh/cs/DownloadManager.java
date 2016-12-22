@@ -7,22 +7,23 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-/**
- * Created by Grzegorz Jasinski on 16.12.16.
- */
 public class DownloadManager {
     public DownloadManager(){}
 
 
     public String downloadJson(URL url) throws IOException{
-        InputStream inputStream = url.openStream();
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-        StringBuilder stringBuilder = new StringBuilder();
-        String line;
-        while((line = bufferedReader.readLine()) != null){
-            stringBuilder.append(line);
+        try(InputStream inputStream = url.openStream()) {
+            try(BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line);
+                }
+                inputStream.close();
+                return stringBuilder.toString();
+            }
         }
-        return stringBuilder.toString();
     }
 
     public String downloadPoliticianTravelsAndExpensesJson(int politicianId) throws IOException{

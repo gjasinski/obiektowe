@@ -2,13 +2,9 @@ package agh.cs;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * Created by Grzegorz Jasinski on 17.12.16.
- */
 public class JsonPoliticians {
     private JSONObject jsonLinks, json;
     private JSONArray jsonDataArray;

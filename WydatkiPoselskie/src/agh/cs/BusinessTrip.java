@@ -3,9 +3,6 @@ package agh.cs;
 import org.json.JSONObject;
 import java.math.BigDecimal;
 
-/**
- * Created by Grzegorz Jasinski on 20.12.16.
- */
 public class BusinessTrip {
     private String tripDescription;
     private String country;
@@ -31,6 +28,6 @@ public class BusinessTrip {
     }
 
     public boolean thisIsTripToItaly(){
-        return this.country.equals("Wlochy");
+        return this.country.equals("Włochy");
     }
 }

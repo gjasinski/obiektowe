@@ -3,12 +3,6 @@ package agh.cs;
 
 import agh.cs.rubbish.Parser;
 
-import java.math.BigDecimal;
-import java.net.URL;
-
-/**
- * Created by Grzegorz Jasinski on 16.12.16.
- */
 public class PoliticsSystem {
     public static void main(String[] args) {
         Parser parser = new Parser();
@@ -46,14 +40,14 @@ public class PoliticsSystem {
             CreateParliament createParliament = new CreateParliament();
             System.out.print(createParliament.toString());
             createParliament.updatePoliticiansProfile();
-            ParliamentGetInformations parliamentGetInformations = new ParliamentGetInformations(createParliament.getParlimentHashMap(), createParliament.getPoliticianLastNameFirstNameHashMap());
-            System.out.println(parliamentGetInformations.getPoliticianSumOfAllExpenses("Górczyński Jarosław"));
-            System.out.println(parliamentGetInformations.getPoliticianAllExpensesForSmallRepairsOfPoliticianOffice("Górczyński Jarosław"));
-            System.out.println(parliamentGetInformations.getPoliticiansAverageSumOfAllExpenses());
-            System.out.println(parliamentGetInformations.getPoliticianIdWhoTravelsMost());
-            System.out.println(parliamentGetInformations.getPoliticianIdWithTheLongestTrip());
-            System.out.println(parliamentGetInformations.getPoliticianIdWithTheMostExpensiveTrip());
-            System.out.println(parliamentGetInformations.getListOfPoliticiansWhoHadBeenInItaly().toString());
+            Parliament parliament = createParliament.getParliament();
+            System.out.println(parliament.getPoliticianSumOfAllExpenses("Górczyński Jarosław"));
+            System.out.println(parliament.getPoliticianAllExpensesForSmallRepairsOfPoliticianOffice("Górczyński Jarosław"));
+            System.out.println(parliament.getPoliticiansAverageSumOfAllExpenses());
+            System.out.println(parliament.getPoliticianIdWhoTravelsMost());
+            System.out.println(parliament.getPoliticianIdWithTheLongestTrip());
+            System.out.println(parliament.getPoliticianIdWithTheMostExpensiveTrip());
+            System.out.println(parliament.getListOfPoliticiansWhoHadBeenInItaly().toString());
 
 
         }catch (Exception e){

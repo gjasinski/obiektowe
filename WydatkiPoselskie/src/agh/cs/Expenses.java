@@ -18,6 +18,7 @@ public class Expenses {
 
     public void addExpense(String title, String value) {
         int id = this.expensesTitles.setExpenseTitleId(title);
+
         if (this.expensesMap.containsKey(id)) {
             this.sumOfExpenses = this.sumOfExpenses.subtract(this.expensesMap.get(id));
         }

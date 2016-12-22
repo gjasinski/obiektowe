@@ -6,21 +6,20 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Grzegorz Jasinski on 21.12.16.
- */
-public class ParliamentGetInformations {
-    private HashMap<Integer, Politician> politicianHashMap;
-    private HashMap<String, Integer> politicianLastNameFirstNameHashmap;
 
-    public ParliamentGetInformations(HashMap<Integer, Politician> politicianHashMap, HashMap<String, Integer> politicianLastNameFirstNameHashmap){
+public class Parliament {
+    private HashMap<Integer, Politician> politicianHashMap;
+    private HashMap<String, Integer> politicianLastNameFirstNameHashMap;
+
+    public Parliament(HashMap<Integer, Politician> politicianHashMap,
+                      HashMap<String, Integer> politicianLastNameFirstNameHashMap){
         this.politicianHashMap = politicianHashMap;
-        this.politicianLastNameFirstNameHashmap = politicianLastNameFirstNameHashmap;
+        this.politicianLastNameFirstNameHashMap = politicianLastNameFirstNameHashMap;
     }
 
     private int getPoliticianIdByLastNameFirstName(String lastNameFirstName){
-        if(this.politicianLastNameFirstNameHashmap.containsKey(lastNameFirstName)){
-            return this.politicianLastNameFirstNameHashmap.get(lastNameFirstName);
+        if(this.politicianLastNameFirstNameHashMap.containsKey(lastNameFirstName)){
+            return this.politicianLastNameFirstNameHashMap.get(lastNameFirstName);
         }
         else{
             throw new IllegalArgumentException("There is no politician: " + lastNameFirstName);
@@ -56,6 +55,7 @@ public class ParliamentGetInformations {
     public BigDecimal getPoliticiansAverageSumOfAllExpenses(){
         BigDecimal sumOfAllExpenses = BigDecimal.ZERO;
         BigDecimal quantity = new BigDecimal(this.politicianHashMap.size());
+
         for(Map.Entry<Integer, Politician> entry : this.politicianHashMap.entrySet()){
             sumOfAllExpenses = sumOfAllExpenses.add(entry.getValue().getAllExpenses());
         }
@@ -66,6 +66,7 @@ public class ParliamentGetInformations {
         int maximumQuantityOfTrips = 0;
         int politicianId = -1;
         int quantityOfTrips;
+
         for(Map.Entry<Integer, Politician> entry : this.politicianHashMap.entrySet()){
             quantityOfTrips = entry.getValue().getQuantityOfTravels();
             if(quantityOfTrips > maximumQuantityOfTrips){
@@ -82,6 +83,7 @@ public class ParliamentGetInformations {
         int maximumLongestTrip = 0;
         int politicianId = -1;
         int longestTrip;
+
         for(Map.Entry<Integer, Politician> entry : this.politicianHashMap.entrySet()){
             longestTrip = entry.getValue().getLongestTrip();
             if(longestTrip > maximumLongestTrip){
@@ -96,8 +98,9 @@ public class ParliamentGetInformations {
 
     public int getPoliticianIdWithTheMostExpensiveTrip(){
         BigDecimal maximumMostExpensiveTrip = BigDecimal.ZERO;
-        int politicianId = -1;
         BigDecimal mostExpensiveTrip;
+        int politicianId = -1;
+
         for(Map.Entry<Integer, Politician> entry : this.politicianHashMap.entrySet()){
             mostExpensiveTrip = entry.getValue().getCostOfMostExpensiveTrip();
             if(mostExpensiveTrip.compareTo(maximumMostExpensiveTrip) == 1){
@@ -112,6 +115,7 @@ public class ParliamentGetInformations {
 
     public List<Integer> getListOfPoliticiansWhoHadBeenInItaly(){
         List<Integer> politicianList = new LinkedList<>();
+
         for(Map.Entry<Integer, Politician> entry : this.politicianHashMap.entrySet()){
             if(entry.getValue().hadBeenInItaly()){
                 politicianList.add(entry.getKey());

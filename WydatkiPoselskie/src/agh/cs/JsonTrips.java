@@ -2,9 +2,6 @@ package agh.cs;
 
 import org.json.JSONArray;
 
-/**
- * Created by Grzegorz Jasinski on 20.12.16.
- */
 public class JsonTrips {
     private Politician politician;
     private JSONArray tripsJsonArray;

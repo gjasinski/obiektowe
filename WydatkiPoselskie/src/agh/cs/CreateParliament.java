@@ -8,22 +8,20 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Grzegorz Jasinski on 16.12.16.
- */
-public class CreateParliament {
+public class CreateParliament{
     private HashMap<Integer, Politician> politicianHashMap;
     private HashMap<String, Integer> politicianLastNameFirstNameHashMap;
     private ExpensesTitles expensesTitles;
-
+    private DownloadManager downloadManager;
 
     public CreateParliament() throws IOException{
-        //URL jsonUrl = new URL("https://api-v3.mojepanstwo.pl/dane/poslowie.json?conditions[poslowie.kadencja]=8");
-        URL jsonUrl = new URL("https://api-v3.mojepanstwo.pl/dane/poslowie.json");
-        expensesTitles = new ExpensesTitles();
-        DownloadManager downloadManager = new DownloadManager();
         this.politicianHashMap = new HashMap<>();
         this.politicianLastNameFirstNameHashMap = new HashMap<>();
+        this.downloadManager = new DownloadManager();
+        this.expensesTitles = new ExpensesTitles();
+        //URL jsonUrl = new URL("https://api-v3.mojepanstwo.pl/dane/poslowie.json?conditions[poslowie.kadencja]=8");
+        URL jsonUrl = new URL("https://api-v3.mojepanstwo.pl/dane/poslowie.json");
+
         String downloadedJsonData;
         JsonPoliticians jsonPoliticians;
         JSONArray jsonArray;
@@ -45,20 +43,21 @@ public class CreateParliament {
         for(int i = 0; i < jsonArray.length(); i++){
             politicianRecord = jsonArray.getJSONObject(i);
             politicianDetails = politicianRecord.getJSONObject("data");
-            Politician politician = new Politician(politicianRecord.getInt("id"), politicianDetails.getString("poslowie.nazwa_odwrocona"));
+            Politician politician = new Politician(politicianRecord.getInt("id"),
+                    politicianDetails.getString("poslowie.nazwa_odwrocona"));
+
             this.politicianHashMap.put(politicianRecord.getInt("id"), politician);
             this.politicianLastNameFirstNameHashMap.put(politician.getLastNameFirstName(), politician.getId());
         }
     }
 
     public void updatePoliticiansProfile() throws IOException {
-        DownloadManager downloadManager = new DownloadManager();
         JsonExpenses jsonExpenses;
         JsonTrips jsonTrips;
         JSONObject jsonObject;
 
         for(Map.Entry<Integer, Politician> entry : this.politicianHashMap.entrySet()){
-            String politicianDetails = downloadManager.downloadPoliticianTravelsAndExpensesJson(entry.getKey());
+            String politicianDetails = this.downloadManager.downloadPoliticianTravelsAndExpensesJson(entry.getKey());
             jsonObject = new JSONObject(politicianDetails).getJSONObject("layers");
             jsonExpenses = new JsonExpenses(entry.getValue(), jsonObject.getJSONObject("wydatki"), this.expensesTitles);
             jsonExpenses.updateAllExpenses();
@@ -68,17 +67,13 @@ public class CreateParliament {
                 //When in JSON there is no trips, then this field is empty and it is JSONObject
                 //So we ignore this situation.
             }
+            // TODO: 22.12.16 Delete after debug
+
             System.out.print(entry.getKey()+" ");
         }
     }
 
-    public HashMap<Integer, Politician> getParlimentHashMap(){
-        return this.politicianHashMap;
-    }
-
-    public HashMap<String, Integer> getPoliticianLastNameFirstNameHashMap(){
-        return this.politicianLastNameFirstNameHashMap;
-    }
+    public Parliament getParliament(){return new Parliament(this.politicianHashMap, this.politicianLastNameFirstNameHashMap);}
 
     @Override
     public String toString(){
@@ -87,6 +82,9 @@ public class CreateParliament {
             stringBuilder.append(entry.getValue().toString());
             stringBuilder.append("\n");
         }
-        return stringBuilder.toString()+" "+this.politicianHashMap.size();
+        stringBuilder.append("Politicians quantity: ");
+        stringBuilder.append(this.politicianHashMap.size());
+        stringBuilder.append("\n");
+        return stringBuilder.toString();
     }
 }
