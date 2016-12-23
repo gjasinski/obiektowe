@@ -1,63 +1,63 @@
 package agh.cs;
 
 
-import agh.cs.rubbish.Parser;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class PoliticsSystem {
     public static void main(String[] args) {
-        Parser parser = new Parser();
-
+        long timeStart = System.currentTimeMillis();
+        InputParser inputParser = new InputParser();
         try{
-            //parser.argumentsAreValid(args);
-            /*switch (Integer.parseInt(args[0])){
-                case 0: printHelp();
-                    break;
-                case 1:
-                    printPoliticians();
-                    break;
-                case 2:
-                    print(średniej wartości sumy wydatków wszystkich posłów);
-                    break;
-                case 3:
-                    print(posła/posłanki, który wykonał najwięcej podróży zagranicznych);
-                    break;
-                case 4:
-                    print(posła/posłanki, który najdłużej przebywał za granicą);
-                    break;
-                case 5:
-                    print(posła/posłanki, który odbył najdroższą podróż zagraniczną);
-                    break;
-                case 6:
-                    print(listę wszystkich posłów, którzy odwiedzili Włochy);
-                    break;
-                case 7:
-                    print(suma wydatków posła/posłanki o określonym imieniu i nazwisku);
-                    break;
-                case 8:(wysokości wydatków na 'drobne naprawy i remonty biura poselskiego' określonego posła/posłanki);
-                    break;
-
-            }*/
+            inputParser.argumentsAreValid(args);
             CreateParliament createParliament = new CreateParliament();
-            System.out.print(createParliament.toString());
             createParliament.updatePoliticiansProfile();
             Parliament parliament = createParliament.getParliament();
-            System.out.println(parliament.getPoliticianSumOfAllExpenses("Górczyński Jarosław"));
-            System.out.println(parliament.getPoliticianAllExpensesForSmallRepairsOfPoliticianOffice("Górczyński Jarosław"));
-            System.out.println(parliament.getPoliticiansAverageSumOfAllExpenses());
-            System.out.println(parliament.getPoliticianIdWhoTravelsMost());
-            System.out.println(parliament.getPoliticianIdWithTheLongestTrip());
-            System.out.println(parliament.getPoliticianIdWithTheMostExpensiveTrip());
-            System.out.println(parliament.getListOfPoliticiansWhoHadBeenInItaly().toString());
+            String computedInformation = "";
 
+            switch (Integer.parseInt(args[0])){
+                case 0: printHelp();
+                    break;
+                case 1: printListOfPoliticians(parliament.getListOfPoliticians());
+                    break;
+                case 2: printListOfPoliticians(parliament.getListOfPoliticiansInAlphabeticOrder());
+                    break;
+                case 3: computedInformation = parliament.getPoliticiansAverageSumOfAllExpenses().toString();
+                    break;
+                case 4: computedInformation = parliament.getPoliticianIdWhoTravelsMost().toString();
+                    break;
+                case 5: computedInformation = parliament.getPoliticianIdWithTheLongestTrip().toString();
+                    break;
+                case 6: computedInformation = parliament.getPoliticianIdWithTheMostExpensiveTrip().toString();
+                    break;
+                case 7: printListOfPoliticians(parliament.getListOfPoliticiansWhoHadBeenInItaly());
+                    break;
+                case 8: computedInformation = parliament.getPoliticianSumOfAllExpenses(args[1] + " " + args[3]).toString();
+                    break;
+                case 9: computedInformation = parliament.getPoliticianAllExpensesForSmallRepairsOfPoliticianOffice(args[1]
+                        + " " + args[3]).toString();
+                    break;
+                case 10: new GenerateAndWriteAllParliamentInfo(parliament);
+                    break;
+            }
+
+            System.out.println(computedInformation);
 
         }catch (Exception e){
             System.out.print(e.toString());
-            //System.out.print(
-                    e.printStackTrace();//);
+                    e.printStackTrace();
         }
+        System.out.print(System.currentTimeMillis()-timeStart);
+    }
+
+    private static void printListOfPoliticians(List<Politician> listOfPoliticiansWhoHadBeenInItaly) {
+        System.out.println(listOfPoliticiansWhoHadBeenInItaly.stream()
+                .map(Politician::toString)
+                .collect(Collectors.joining("\n")));
     }
 
     private static void printHelp() {
+        System.out.println("Help");
     }
 
 

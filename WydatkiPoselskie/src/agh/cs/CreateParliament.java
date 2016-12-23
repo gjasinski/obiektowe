@@ -69,7 +69,7 @@ public class CreateParliament{
             }
             // TODO: 22.12.16 Delete after debug
 
-            System.out.print(entry.getKey()+" ");
+            //System.out.print(entry.getKey()+" ");
         }
     }
 

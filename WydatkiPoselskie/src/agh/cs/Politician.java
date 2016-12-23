@@ -90,7 +90,7 @@ public class Politician {
 
     @Override
     public String toString() {
-        return lastNameFirstName + " " + id;
+        return this.id + " " + this.lastNameFirstName;
     }
 
     @Override
