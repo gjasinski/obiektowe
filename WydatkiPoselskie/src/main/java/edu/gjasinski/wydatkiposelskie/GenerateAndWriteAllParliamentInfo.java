@@ -1,9 +1,6 @@
-package agh.cs;
+package main.java.edu.gjasinski.wydatkiposelskie;
 
 import java.io.*;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
 import java.util.stream.Collectors;
 
 public class GenerateAndWriteAllParliamentInfo {

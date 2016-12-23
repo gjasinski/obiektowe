@@ -1,4 +1,4 @@
-package agh.cs;
+package main.java.edu.gjasinski.wydatkiposelskie;
 
 
 import org.json.JSONArray;
@@ -61,6 +61,7 @@ public class CreateParliament{
             jsonObject = new JSONObject(politicianDetails).getJSONObject("layers");
             jsonExpenses = new JsonExpenses(entry.getValue(), jsonObject.getJSONObject("wydatki"), this.expensesTitles);
             jsonExpenses.updateAllExpenses();
+
             if(jsonObject.get("wyjazdy") instanceof JSONArray) {
                 jsonTrips = new JsonTrips(entry.getValue(), jsonObject.getJSONArray("wyjazdy"));
                 jsonTrips.addTrips();
@@ -69,7 +70,7 @@ public class CreateParliament{
             }
             // TODO: 22.12.16 Delete after debug
 
-            //System.out.print(entry.getKey()+" ");
+            System.out.print(entry.getKey()+" ");
         }
     }
 

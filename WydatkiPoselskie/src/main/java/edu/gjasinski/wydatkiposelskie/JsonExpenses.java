@@ -1,4 +1,4 @@
-package agh.cs;
+package main.java.edu.gjasinski.wydatkiposelskie;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

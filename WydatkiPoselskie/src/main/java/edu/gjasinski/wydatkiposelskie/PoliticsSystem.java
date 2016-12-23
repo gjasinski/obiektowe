@@ -1,6 +1,8 @@
-package agh.cs;
+package main.java.edu.gjasinski.wydatkiposelskie;
 
 
+import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,9 +45,14 @@ public class PoliticsSystem {
 
             System.out.println(computedInformation);
 
-        }catch (Exception e){
-            System.out.print(e.toString());
-                    e.printStackTrace();
+        }catch (UnknownHostException e){
+            System.out.print("There is problem with internet connection. " + e.toString());
+        }
+        catch (IOException | IllegalArgumentException e){
+            System.out.println("Something went wrong:\n" + e.toString());
+        }
+        catch (Exception e){
+            System.out.println("Something strange went wrong:\n" + e.toString());
         }
         System.out.print(System.currentTimeMillis()-timeStart);
     }

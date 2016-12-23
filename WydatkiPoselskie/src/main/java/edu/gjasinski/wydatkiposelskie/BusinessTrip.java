@@ -1,4 +1,4 @@
-package agh.cs;
+package main.java.edu.gjasinski.wydatkiposelskie;
 
 import org.json.JSONObject;
 import java.math.BigDecimal;
@@ -16,7 +16,6 @@ public class BusinessTrip {
         this.id = businessTripJsonObject.getInt("id");
         this.days = businessTripJsonObject.getInt("liczba_dni");
         this.totalCost = new BigDecimal(businessTripJsonObject.getString("koszt_suma"));
-        if(this.country.equals("Polska"))System.out.println("AAAAAAAAA PODROZ DO POLSKI!!!!!!!!!!!!!!");
     }
 
     public int getDurationOfTripInDays(){

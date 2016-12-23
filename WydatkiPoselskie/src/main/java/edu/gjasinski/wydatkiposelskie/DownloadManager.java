@@ -1,4 +1,4 @@
-package agh.cs;
+package main.java.edu.gjasinski.wydatkiposelskie;
 
 
 import java.io.BufferedReader;
@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.UnknownHostException;
 
 public class DownloadManager {
     public DownloadManager(){}

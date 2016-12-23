@@ -1,4 +1,4 @@
-package agh.cs;
+package main.java.edu.gjasinski.wydatkiposelskie;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
