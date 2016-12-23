@@ -1,10 +1,7 @@
 package main.java.edu.gjasinski.wydatkiposelskie;
 
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 import java.net.UnknownHostException;
 
@@ -26,6 +23,9 @@ public class DownloadManager {
             }
         }catch (UnknownHostException e){
             throw new IOException("There is problem with internet connection.", e);
+        }
+        catch (FileNotFoundException e){
+            throw new IOException("There is no JSON with this URL" + url.toString(), e);
         }
     }
 

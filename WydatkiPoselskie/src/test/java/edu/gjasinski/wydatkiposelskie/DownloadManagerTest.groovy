@@ -14,7 +14,7 @@ class DownloadManagerTest extends Specification {
         String data = downloadManager.downloadJson(url)
 
         then:
-        data.length() > 0
+        0 < data.length()
     }
 
     def "method downloadJson should throw IOException"(){
@@ -23,7 +23,7 @@ class DownloadManagerTest extends Specification {
         URL url = new URL("https://niematakiejstrony.agh.edu.cs.arizona.pl")
 
         when:
-        String data = downloadManager.downloadJson(url)
+        downloadManager.downloadJson(url)
 
         then:
         thrown(IOException)
@@ -38,6 +38,18 @@ class DownloadManagerTest extends Specification {
         String data = downloadManager.downloadPoliticianTravelsAndExpensesJson(id)
 
         then:
-        data.length() > 0
+        0 < data.length()
+    }
+
+    def "method downloadPoliticianTravelsAndExpensesJson should throw IOException"(){
+        setup:
+        DownloadManager downloadManager = new DownloadManager()
+        int id = 500
+
+        when:
+        downloadManager.downloadPoliticianTravelsAndExpensesJson(id)
+
+        then:
+        thrown(IOException)
     }
 }

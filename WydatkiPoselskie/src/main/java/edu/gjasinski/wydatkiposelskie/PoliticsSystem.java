@@ -1,8 +1,9 @@
 package main.java.edu.gjasinski.wydatkiposelskie;
 
 
+import main.java.edu.gjasinski.wydatkiposelskie.rubbish.GenerateAndWriteAllParliamentInfo;
+
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.util.List;
 import java.util.stream.Collectors;
 

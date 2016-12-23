@@ -9,7 +9,7 @@ public class Parliament {
     private HashMap<Integer, Politician> politicianHashMap;
     private HashMap<String, Integer> politicianLastNameFirstNameHashMap;
 
-    public Parliament(HashMap<Integer, Politician> politicianHashMap,
+    protected Parliament(HashMap<Integer, Politician> politicianHashMap,
                       HashMap<String, Integer> politicianLastNameFirstNameHashMap){
         this.politicianHashMap = politicianHashMap;
         this.politicianLastNameFirstNameHashMap = politicianLastNameFirstNameHashMap;
