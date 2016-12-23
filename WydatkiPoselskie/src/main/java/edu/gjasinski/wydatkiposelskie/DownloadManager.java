@@ -24,6 +24,8 @@ public class DownloadManager {
                 inputStream.close();
                 return stringBuilder.toString();
             }
+        }catch (UnknownHostException e){
+            throw new IOException("There is problem with internet connection.", e);
         }
     }
 

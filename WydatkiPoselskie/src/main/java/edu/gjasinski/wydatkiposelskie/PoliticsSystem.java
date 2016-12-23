@@ -45,8 +45,6 @@ public class PoliticsSystem {
 
             System.out.println(computedInformation);
 
-        }catch (UnknownHostException e){
-            System.out.print("There is problem with internet connection. " + e.toString());
         }
         catch (IOException | IllegalArgumentException e){
             System.out.println("Something went wrong:\n" + e.toString());
