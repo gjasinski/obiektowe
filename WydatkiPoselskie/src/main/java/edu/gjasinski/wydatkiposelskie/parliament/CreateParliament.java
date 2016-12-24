@@ -1,6 +1,7 @@
-package main.java.edu.gjasinski.wydatkiposelskie;
+package main.java.edu.gjasinski.wydatkiposelskie.parliament;
 
 
+import main.java.edu.gjasinski.wydatkiposelskie.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.IOException;

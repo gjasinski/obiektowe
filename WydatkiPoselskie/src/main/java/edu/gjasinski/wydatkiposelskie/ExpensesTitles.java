@@ -9,7 +9,7 @@ public class ExpensesTitles {
         this.expensesTitles = new HashMap<>();
     }
 
-    public int setExpenseTitleId(String title) {
+    public int setExpensesTitleId(String title) {
         if(this.expensesTitles.containsKey(title)){
             return this.expensesTitles.get(title);
         }else{
@@ -19,7 +19,12 @@ public class ExpensesTitles {
         }
     }
 
-    public int getExpenseTitle(String title) {
-        return this.expensesTitles.get(title);
+    public int getExpensesTitle(String title) {
+        if(this.expensesTitles.containsKey(title)) {
+            return this.expensesTitles.get(title);
+        }
+        else{
+            return -1;
+        }
     }
 }

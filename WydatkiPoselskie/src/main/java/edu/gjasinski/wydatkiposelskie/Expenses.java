@@ -17,7 +17,7 @@ public class Expenses {
     }
 
     public void addExpense(String title, String value) {
-        int id = this.expensesTitles.setExpenseTitleId(title);
+        int id = this.expensesTitles.setExpensesTitleId(title);
 
         if (this.expensesMap.containsKey(id)) {
             this.sumOfExpenses = this.sumOfExpenses.subtract(this.expensesMap.get(id));
@@ -32,8 +32,8 @@ public class Expenses {
     }
 
     public BigDecimal getExpensesForSmallRepairsOfPoliticianOffice(){
-        int expenseId = this.expensesTitles.getExpenseTitle("Koszty drobnych napraw i remontów lokalu biura poselskiego");
-        if(expenseId == -1){
+        int expenseId = this.expensesTitles.getExpensesTitle("Koszty drobnych napraw i remontów lokalu biura poselskiego");
+        if(expenseId == -1 || !this.expensesMap.containsKey(expenseId)){
             return BigDecimal.ZERO;
         }
         else{

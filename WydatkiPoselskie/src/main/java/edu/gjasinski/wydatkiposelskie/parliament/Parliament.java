@@ -1,4 +1,6 @@
-package main.java.edu.gjasinski.wydatkiposelskie;
+package main.java.edu.gjasinski.wydatkiposelskie.parliament;
+
+import main.java.edu.gjasinski.wydatkiposelskie.Politician;
 
 import java.math.BigDecimal;
 import java.util.*;
