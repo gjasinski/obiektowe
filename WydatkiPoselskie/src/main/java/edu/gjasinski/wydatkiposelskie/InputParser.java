@@ -5,11 +5,12 @@ public class InputParser {
 
     public boolean argumentsAreValid(String[] args) throws IllegalArgumentException{
         try {
-            if (args.length == 1 && Integer.parseInt(args[0]) >= 0 && Integer.parseInt(args[0]) <= 7) {
+            if(args.length == 2 && Integer.parseInt(args[0]) == 10){return true;}
+            if (args.length == 2 && Integer.parseInt(args[0]) >= 0 && Integer.parseInt(args[0]) <= 7) {
                 return true;
             }
 
-            if (args.length == 3 && Integer.parseInt(args[0]) > 7) {
+            if (args.length == 4 && Integer.parseInt(args[0]) > 7) {
                 return true;
             }
         }

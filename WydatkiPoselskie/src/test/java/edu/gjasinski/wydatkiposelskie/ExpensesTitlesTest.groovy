@@ -35,20 +35,20 @@ class ExpensesTitlesTest extends Specification {
         id1 != id2
         id1 == id3
         id2 == id4
-        id1 == expensesTitles.getExpensesTitle("1")
-        id2 == expensesTitles.getExpensesTitle("2")
-        id3 == expensesTitles.getExpensesTitle("1")
-        id4 == expensesTitles.getExpensesTitle("2")
+        expensesTitles.getExpensesTitle("1") == id1
+        expensesTitles.getExpensesTitle("2") == id2
+        expensesTitles.getExpensesTitle("1") == id3
+        expensesTitles.getExpensesTitle("2") == id4
     }
 
-    def "get title which is not in hashmap"(){
+    def "get title which is not in hashmap should return -1"(){
         setup:
         ExpensesTitles expensesTitles = new ExpensesTitles()
 
         when:
-        expensesTitles.getExpensesTitle("2")
+        def id =expensesTitles.getExpensesTitle("2")
 
         then:
-        thrown(IllegalArgumentException)
+        id == -1
     }
 }

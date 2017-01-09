@@ -15,13 +15,12 @@ public class CreateParliament{
     private ExpensesTitles expensesTitles;
     private DownloadManager downloadManager;
 
-    public CreateParliament() throws IOException{
+    public CreateParliament(String term) throws IOException{
         this.politicianHashMap = new HashMap<>();
         this.politicianLastNameFirstNameHashMap = new HashMap<>();
         this.downloadManager = new DownloadManager();
         this.expensesTitles = new ExpensesTitles();
-        //URL jsonUrl = new URL("https://api-v3.mojepanstwo.pl/dane/poslowie.json?conditions[poslowie.kadencja]=8");
-        URL jsonUrl = new URL("https://api-v3.mojepanstwo.pl/dane/poslowie.json");
+        URL jsonUrl = new URL("https://api-v3.mojepanstwo.pl/dane/poslowie.json?conditions[poslowie.kadencja]=" + term);
 
         String downloadedJsonData;
         JsonPoliticians jsonPoliticians;
@@ -69,8 +68,8 @@ public class CreateParliament{
                 //When in JSON there is no trips, then this field is empty and it is JSONObject
                 //So we ignore this situation.
             }
-            // TODO: 22.12.16 Delete after debug
 
+            // TODO: 22.12.16 Delete after debug
             System.out.print(entry.getKey()+" ");
         }
     }

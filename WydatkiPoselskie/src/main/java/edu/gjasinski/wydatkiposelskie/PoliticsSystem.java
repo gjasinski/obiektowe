@@ -15,7 +15,7 @@ public class PoliticsSystem {
         InputParser inputParser = new InputParser();
         try{
             inputParser.argumentsAreValid(args);
-            CreateParliament createParliament = new CreateParliament();
+            CreateParliament createParliament = new CreateParliament(args[1]);
             createParliament.updatePoliticiansProfile();
             Parliament parliament = createParliament.getParliament();
             String computedInformation = "";
@@ -55,7 +55,7 @@ public class PoliticsSystem {
         catch (Exception e){
             System.out.println("Something strange went wrong:\n" + e.toString());
         }
-        System.out.print(System.currentTimeMillis()-timeStart);
+        System.out.print((System.currentTimeMillis()-timeStart)/1000);
     }
 
     private static void printListOfPoliticians(List<Politician> listOfPoliticiansWhoHadBeenInItaly) {

@@ -51,16 +51,16 @@ public class Politician {
         return sumOfExpenses;
     }
 
-    public int getQuantityOfTravels() {
+    public int getQuantityOfTips() {
         return this.businessTripList.size();
     }
 
-    public int getLongestTrip() {
+    public int getDurationOfLongestTrip() {
         int longestTrip = 0;
         int tripLength;
 
-        for (BusinessTrip aBusinessTripList : this.businessTripList) {
-            tripLength = aBusinessTripList.getDurationOfTripInDays();
+        for (BusinessTrip businessTripList : this.businessTripList) {
+            tripLength = businessTripList.getDurationOfTripInDays();
             if (tripLength > longestTrip) {
                 longestTrip = tripLength;
             }

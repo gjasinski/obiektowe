@@ -41,6 +41,7 @@ public class JsonExpenses {
         if(expensesFromYearJsonArray.length() != pointsJsonArray.length()){
             //There is minimum one case when expensesFromYearJsonArray.length() != pointsJsonArray.length()
             //json is not valid
+            System.out.println("NOT VALID JSON");
             return;
         }
 
