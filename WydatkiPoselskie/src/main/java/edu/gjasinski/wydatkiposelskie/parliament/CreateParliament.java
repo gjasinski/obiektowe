@@ -63,29 +63,6 @@ public class CreateParliament{
         return politicianList;
     }
 
-    public void updatePoliticiansProfile() throws IOException {
-        JsonExpenses jsonExpenses;
-        JsonTrips jsonTrips;
-        JSONObject jsonObject;
-
-        for(Map.Entry<Integer, Politician> entry : this.politicianHashMap.entrySet()){
-            String politicianDetails = this.downloadManager.downloadPoliticianTravelsAndExpensesJson(entry.getKey());
-            jsonObject = new JSONObject(politicianDetails).getJSONObject("layers");
-            jsonExpenses = new JsonExpenses(entry.getValue(), jsonObject.getJSONObject("wydatki"), this.expensesTitles);
-            jsonExpenses.updateAllExpenses();
-
-            if(jsonObject.get("wyjazdy") instanceof JSONArray) {
-                jsonTrips = new JsonTrips(entry.getValue(), jsonObject.getJSONArray("wyjazdy"));
-                jsonTrips.addTrips();
-                //When in JSON there is no trips, then this field is empty and it is JSONObject
-                //So we ignore this situation.
-            }
-
-            // TODO: 22.12.16 Delete after debug
-            System.out.print(entry.getKey()+" ");
-        }
-    }
-
     public Parliament getParliament(){return new Parliament(this.politicianHashMap, this.politicianLastNameFirstNameHashMap);}
 
     @Override
