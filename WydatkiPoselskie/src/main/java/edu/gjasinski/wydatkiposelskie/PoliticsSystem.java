@@ -16,7 +16,7 @@ public class PoliticsSystem {
         try{
             inputParser.argumentsAreValid(args);
             CreateParliament createParliament = new CreateParliament(args[1]);
-            createParliament.updatePoliticiansProfile();
+            //createParliament.updatePoliticiansProfile();
             Parliament parliament = createParliament.getParliament();
             String computedInformation = "";
 

@@ -16,11 +16,12 @@ public class ParallelPoliticiansUpdate implements Runnable{
         this.politicianList = politicianList;
         this.expensesTitles = expensesTitles;
         downloadManager = new DownloadManager();
-        run();
+        //run();
     }
 
     @Override
     public void run(){
+        System.out.println("CREATED NEW THREAD" +Thread.activeCount());
         updatePoliticiansProfile();
     }
 
