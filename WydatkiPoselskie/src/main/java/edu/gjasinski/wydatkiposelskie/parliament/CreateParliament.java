@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CreateParliament{
@@ -35,6 +36,7 @@ public class CreateParliament{
             }
             addPoliticiansToList(jsonArray);
         }while(jsonPoliticians.hasNext());
+        System.out.println("aktywne watki " + Thread.activeCount());
     }
 
     private void addPoliticiansToList(JSONArray jsonArray){
