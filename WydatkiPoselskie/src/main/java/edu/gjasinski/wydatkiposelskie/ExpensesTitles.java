@@ -1,8 +1,6 @@
 package main.java.edu.gjasinski.wydatkiposelskie;
 
 import java.util.HashMap;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class ExpensesTitles {
     private HashMap<String, Integer> expensesTitles;
@@ -11,14 +9,18 @@ public class ExpensesTitles {
         this.expensesTitles = new HashMap<>();
     }
 
-    public synchronized int setExpensesTitleId(String title) {
+    public int setExpensesTitleId(String title) {
         if(this.expensesTitles.containsKey(title)){
             return this.expensesTitles.get(title);
         }else{
-            int id = this.expensesTitles.size();
-            this.expensesTitles.put(title, id);
-            return id;
+            return set(title);
         }
+    }
+
+    private synchronized int set(String title){
+        int id = this.expensesTitles.size();
+        this.expensesTitles.put(title, id);
+        return id;
     }
 
     public int getExpensesTitle(String title) {

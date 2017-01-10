@@ -39,8 +39,8 @@ public class CreateParliament{
             politicianList = addPoliticiansToList(jsonArray);
             threads.add(new Thread(new ParallelPoliticiansUpdate(politicianList, expensesTitles)));
         }while(jsonPoliticians.hasNext());
+
         threads.forEach(Thread::start);
-        System.out.println("aktywne watki " + Thread.activeCount());
         for (Thread thread : threads) {
             thread.join();
         }

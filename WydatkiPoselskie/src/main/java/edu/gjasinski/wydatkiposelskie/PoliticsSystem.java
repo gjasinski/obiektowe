@@ -55,7 +55,7 @@ public class PoliticsSystem {
         catch (Exception e){
             System.out.println("Something strange went wrong:\n" + e.toString());
         }
-        System.out.print((System.currentTimeMillis()-timeStart)/1000);
+        System.out.print((System.currentTimeMillis()-timeStart)/1000 + " s");
     }
 
     private static void printListOfPoliticians(List<Politician> listOfPoliticiansWhoHadBeenInItaly) {

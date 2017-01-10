@@ -55,17 +55,12 @@ public class Politician {
         return this.businessTripList.size();
     }
 
-    public int getDurationOfLongestTrip() {
-        int longestTrip = 0;
-        int tripLength;
-
-        for (BusinessTrip businessTripList : this.businessTripList) {
-            tripLength = businessTripList.getDurationOfTripInDays();
-            if (tripLength > longestTrip) {
-                longestTrip = tripLength;
-            }
+    public int getDurationOfTrips() {
+        int durationOfTrips = 0;
+        for(BusinessTrip businessTrip: this.businessTripList){
+            durationOfTrips += businessTrip.getDurationOfTripInDays();
         }
-        return longestTrip;
+        return  durationOfTrips;
     }
 
     public BigDecimal getCostOfMostExpensiveTrip() {

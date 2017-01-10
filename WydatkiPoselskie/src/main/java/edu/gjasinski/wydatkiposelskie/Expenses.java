@@ -14,9 +14,6 @@ public class Expenses {
         this.year = year;
         this.sumOfExpenses = BigDecimal.ZERO;
         this.expensesTitles = expensesTitles;
-        if(year!= 2012 && year!=2013){
-            System.out.println("INNY ROK: " + year);
-        }
     }
 
     public void addExpense(String title, String value) {
