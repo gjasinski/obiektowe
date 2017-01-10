@@ -17,8 +17,8 @@ class PoliticianTest extends Specification {
         politician.getLastNameFirstName() == "Nowak Jan"
         politician.getAllExpenses() == BigDecimal.ZERO
         politician.getAllExpensesForSmallRepairsOfPoliticianOffice() == BigDecimal.ZERO
-        politician.getQuantityOfTips() == 0
-        politician.getDurationOfLongestTrip() == 0
+        politician.getDurationsOfTrips() == 0
+        politician.getDurationOfTrips() == 0
         politician.getCostOfMostExpensiveTrip() == BigDecimal.ZERO
         !politician.hadBeenInItaly()
     }
@@ -71,7 +71,7 @@ class PoliticianTest extends Specification {
         when:
         politician.addBusinessTrip(businessTrip1)
         politician.addBusinessTrip(businessTrip2)
-        def quantityOfTrips = politician.getQuantityOfTips()
+        def quantityOfTrips = politician.getDurationsOfTrips()
 
         then:
         quantityOfTrips == 2
@@ -91,7 +91,7 @@ class PoliticianTest extends Specification {
         when:
         politician.addBusinessTrip(businessTrip1)
         //politician.addBusinessTrip(businessTrip2)
-        def durationOfLongestTrip = politician.getDurationOfLongestTrip()
+        def durationOfLongestTrip = politician.getDurationOfTrips()
 
         then:
         durationOfLongestTrip == 20

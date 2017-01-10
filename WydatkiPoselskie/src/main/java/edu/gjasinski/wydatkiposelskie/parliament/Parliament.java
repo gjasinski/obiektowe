@@ -59,8 +59,6 @@ public class Parliament {
         for(Map.Entry<Integer, Politician> entry : this.politicianHashMap.entrySet()){
             sumOfAllExpenses = sumOfAllExpenses.add(entry.getValue().getAllExpenses());
         }
-        System.out.println("SUM OF ALL EXPENSES: " + sumOfAllExpenses);
-        System.out.println("Politicians count: " + quantity);
         return sumOfAllExpenses.divide(quantity, 2, 0);
     }
 
@@ -76,10 +74,6 @@ public class Parliament {
                 politician = entry.getValue();
             }
         }
-
-        // TODO: 22.12.16 do testow tylko usunac
-        System.out.println("\n MAXMAOUNT OF TRPS" + maximumQuantityOfTrips + politician.toString());
-
         return politician;
     }
 
@@ -90,15 +84,12 @@ public class Parliament {
 
 
         for(Map.Entry<Integer, Politician> entry : this.politicianHashMap.entrySet()){
-            longestTrip = entry.getValue().getDurationOfLongestTrip();
+            longestTrip = entry.getValue().getDurationOfTrips();
             if(longestTrip > maximumLongestTrip){
                 maximumLongestTrip = longestTrip;
                 politician = entry.getValue();
             }
         }
-        // TODO: 22.12.16 do testow tylko usunac
-        System.out.println(maximumLongestTrip + politician.toString());
-
         return politician;
     }
 
@@ -114,9 +105,6 @@ public class Parliament {
                 politician = entry.getValue();
             }
         }
-        // TODO: 22.12.16 do testow tylko usunac
-        System.out.println(maximumMostExpensiveTrip + politician.toString());
-
         return politician;
     }
 

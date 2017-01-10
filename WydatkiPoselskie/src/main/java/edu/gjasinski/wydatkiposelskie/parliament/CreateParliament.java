@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,7 @@ public class CreateParliament{
     private ExpensesTitles expensesTitles;
     private DownloadManager downloadManager;
 
-    public CreateParliament(String term) throws IOException{
+    public CreateParliament(String term) throws IOException, InterruptedException{
         this.politicianHashMap = new HashMap<>();
         this.politicianLastNameFirstNameHashMap = new HashMap<>();
         this.downloadManager = new DownloadManager();
@@ -26,7 +27,8 @@ public class CreateParliament{
         String downloadedJsonData;
         JsonPoliticians jsonPoliticians;
         JSONArray jsonArray;
-
+        List<Politician> politicianList;
+        List<Thread> threads=new LinkedList<>();
         do{
             downloadedJsonData = downloadManager.downloadJson(jsonUrl);
             jsonPoliticians = new JsonPoliticians(downloadedJsonData);
@@ -34,13 +36,19 @@ public class CreateParliament{
             if(jsonPoliticians.hasNext()){
                 jsonUrl = jsonPoliticians.getNextUrl();
             }
-            addPoliticiansToList(jsonArray);
+            politicianList = addPoliticiansToList(jsonArray);
+            threads.add(new Thread(new ParallelPoliticiansUpdate(politicianList, expensesTitles)));
         }while(jsonPoliticians.hasNext());
-        System.out.println("aktywne watki " + Thread.activeCount());
+
+        threads.forEach(Thread::start);
+        for (Thread thread : threads) {
+            thread.join();
+        }
     }
 
-    private void addPoliticiansToList(JSONArray jsonArray){
+    private List<Politician> addPoliticiansToList(JSONArray jsonArray){
         JSONObject politicianRecord, politicianDetails;
+        List<Politician> politicianList = new LinkedList<>();
 
         for(int i = 0; i < jsonArray.length(); i++){
             politicianRecord = jsonArray.getJSONObject(i);
@@ -50,30 +58,9 @@ public class CreateParliament{
 
             this.politicianHashMap.put(politicianRecord.getInt("id"), politician);
             this.politicianLastNameFirstNameHashMap.put(politician.getLastNameFirstName(), politician.getId());
+            politicianList.add(politician);
         }
-    }
-
-    public void updatePoliticiansProfile() throws IOException {
-        JsonExpenses jsonExpenses;
-        JsonTrips jsonTrips;
-        JSONObject jsonObject;
-
-        for(Map.Entry<Integer, Politician> entry : this.politicianHashMap.entrySet()){
-            String politicianDetails = this.downloadManager.downloadPoliticianTravelsAndExpensesJson(entry.getKey());
-            jsonObject = new JSONObject(politicianDetails).getJSONObject("layers");
-            jsonExpenses = new JsonExpenses(entry.getValue(), jsonObject.getJSONObject("wydatki"), this.expensesTitles);
-            jsonExpenses.updateAllExpenses();
-
-            if(jsonObject.get("wyjazdy") instanceof JSONArray) {
-                jsonTrips = new JsonTrips(entry.getValue(), jsonObject.getJSONArray("wyjazdy"));
-                jsonTrips.addTrips();
-                //When in JSON there is no trips, then this field is empty and it is JSONObject
-                //So we ignore this situation.
-            }
-
-            // TODO: 22.12.16 Delete after debug
-            System.out.print(entry.getKey()+" ");
-        }
+        return politicianList;
     }
 
     public Parliament getParliament(){return new Parliament(this.politicianHashMap, this.politicianLastNameFirstNameHashMap);}

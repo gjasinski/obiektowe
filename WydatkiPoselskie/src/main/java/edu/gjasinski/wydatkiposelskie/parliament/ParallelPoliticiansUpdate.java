@@ -16,7 +16,6 @@ public class ParallelPoliticiansUpdate implements Runnable{
         this.politicianList = politicianList;
         this.expensesTitles = expensesTitles;
         downloadManager = new DownloadManager();
-        run();
     }
 
     @Override
@@ -24,7 +23,7 @@ public class ParallelPoliticiansUpdate implements Runnable{
         updatePoliticiansProfile();
     }
 
-    public void updatePoliticiansProfile(){
+    private void updatePoliticiansProfile(){
         JsonExpenses jsonExpenses;
         JsonTrips jsonTrips;
         JSONObject jsonObject;
@@ -41,13 +40,10 @@ public class ParallelPoliticiansUpdate implements Runnable{
                     //When in JSON there is no trips, then this field is empty and it is JSONObject
                     //So we ignore this situation.
                 }
-
-                // TODO: 22.12.16 Delete after debug
-                System.out.print(politician.getId() + " ");
             }
         }
         catch (IOException ex){
-            System.out.println(ex.toString());
+            System.out.println("Parallel downloading - something is wrong: " + ex.toString());
         }
     }
 
