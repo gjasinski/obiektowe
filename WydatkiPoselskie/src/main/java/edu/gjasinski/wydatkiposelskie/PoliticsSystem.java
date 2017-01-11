@@ -3,7 +3,6 @@ package main.java.edu.gjasinski.wydatkiposelskie;
 
 import main.java.edu.gjasinski.wydatkiposelskie.parliament.CreateParliament;
 import main.java.edu.gjasinski.wydatkiposelskie.parliament.Parliament;
-import main.java.edu.gjasinski.wydatkiposelskie.rubbish.GenerateAndWriteAllParliamentInfo;
 
 import java.io.IOException;
 import java.util.List;

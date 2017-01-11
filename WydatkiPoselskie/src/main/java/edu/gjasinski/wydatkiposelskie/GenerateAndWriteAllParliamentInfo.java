@@ -1,4 +1,4 @@
-package main.java.edu.gjasinski.wydatkiposelskie.rubbish;
+package main.java.edu.gjasinski.wydatkiposelskie;
 
 import main.java.edu.gjasinski.wydatkiposelskie.parliament.Parliament;
 import main.java.edu.gjasinski.wydatkiposelskie.Politician;

@@ -9,6 +9,7 @@ import spock.lang.Specification
 
 
 class PoliticianTest extends Specification {
+
     def 'constructor test - basic data - getters should return id and name,  detailed data - getters should return zero'(){
         when:
         def politician = new Politician(10, "Nowak Jan")
@@ -17,7 +18,7 @@ class PoliticianTest extends Specification {
         politician.getLastNameFirstName() == "Nowak Jan"
         politician.getAllExpenses() == BigDecimal.ZERO
         politician.getAllExpensesForSmallRepairsOfPoliticianOffice() == BigDecimal.ZERO
-        politician.getDurationsOfTrips() == 0
+        politician.getQuantityOfTips() == 0
         politician.getDurationOfTrips() == 0
         politician.getCostOfMostExpensiveTrip() == BigDecimal.ZERO
         !politician.hadBeenInItaly()
@@ -71,30 +72,87 @@ class PoliticianTest extends Specification {
         when:
         politician.addBusinessTrip(businessTrip1)
         politician.addBusinessTrip(businessTrip2)
-        def quantityOfTrips = politician.getDurationsOfTrips()
+        def quantityOfTrips = politician.getQuantityOfTips()
 
         then:
         quantityOfTrips == 2
     }
 
 
-    def 'method getLongestTrip should return longest trip'(){
-        def jsonObject = Mock(JSONObject)
-        jsonObject.getInt("liczba_dni") >> 20
-        jsonObject.getInt(_) >> 0
-        jsonObject.getString(_) >> ""
-        def businessTrip1 = Spy(BusinessTrip, args:[jsonObject])
+    def 'method getDurationOfTrips should return duration of trips'(){
+        given:
+        def jsonObject1 = Mock(JSONObject)
+        def jsonObject2 = Mock(JSONObject)
         def politician = new Politician(10, "Nowak Jan")
-        //businessTrip1.getDurationOfTripInDays() >> 10
-        ///businessTrip2.getDurationOfTripInDays() >> 20
+
+        jsonObject1.getString(_) >> "0"
+        jsonObject1.getInt("liczba_dni") >> 10
+        jsonObject1.getInt(_) >> 0
+        jsonObject2.getString(_) >> "0"
+        jsonObject2.getInt("liczba_dni") >> 20
+        jsonObject2.getInt(_) >> 0
+
+        def businessTrip1 = Spy(BusinessTrip, constructorArgs:[jsonObject1])
+        def businessTrip2 = Spy(BusinessTrip, constructorArgs:[jsonObject2])
 
         when:
         politician.addBusinessTrip(businessTrip1)
-        //politician.addBusinessTrip(businessTrip2)
-        def durationOfLongestTrip = politician.getDurationOfTrips()
+        politician.addBusinessTrip(businessTrip2)
+        def durationOfTrips = politician.getDurationOfTrips()
 
         then:
-        durationOfLongestTrip == 20
+        durationOfTrips == 30
     }
 
+    def 'method getCostOfMostExpensiveTrip should return cost of most expensive trip'(){
+        given:
+        def jsonObject1 = Mock(JSONObject)
+        def jsonObject2 = Mock(JSONObject)
+        def politician = new Politician(10, "Nowak Jan")
+
+        jsonObject1.getString("koszt_suma") >> "1000.99"
+        jsonObject1.getString(_) >> "10"
+        jsonObject1.getInt(_) >> 0
+        jsonObject2.getString("koszt_suma") >> "2000"
+        jsonObject2.getString(_) >> "20"
+        jsonObject2.getInt(_) >> 0
+
+        def businessTrip1 = Spy(BusinessTrip, constructorArgs:[jsonObject1])
+        def businessTrip2 = Spy(BusinessTrip, constructorArgs:[jsonObject2])
+
+        when:
+        politician.addBusinessTrip(businessTrip1)
+        politician.addBusinessTrip(businessTrip2)
+        def costOfMostExpensiveTrip = politician.getCostOfMostExpensiveTrip()
+
+        then:
+        costOfMostExpensiveTrip == new BigDecimal("2000")
+    }
+
+
+    def 'method hadBeenInItaly should return false'(){
+        given:
+        def jsonObject1 = Mock(JSONObject)
+        def jsonObject2 = Mock(JSONObject)
+        def politician1 = new Politician(10, "Nowak Jan")
+        def politician2 = new Politician(11, "Jan Jan")
+
+        jsonObject1.getString("kraj") >> "Polska"
+        jsonObject1.getString(_) >> "10"
+        jsonObject1.getInt(_) >> 0
+        jsonObject2.getString("kraj") >> "USA"
+        jsonObject2.getString(_) >> "20"
+        jsonObject2.getInt(_) >> 0
+
+        def businessTrip1 = Spy(BusinessTrip, constructorArgs:[jsonObject1])
+        def businessTrip2 = Spy(BusinessTrip, constructorArgs:[jsonObject2])
+
+        when:
+        politician1.addBusinessTrip(businessTrip1)
+        politician1.addBusinessTrip(businessTrip2)
+
+        then:
+        !politician1.hadBeenInItaly()
+        !politician2.hadBeenInItaly()
+    }
 }

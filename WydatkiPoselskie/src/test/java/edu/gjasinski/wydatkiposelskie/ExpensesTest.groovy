@@ -7,7 +7,7 @@ import spock.lang.Specification
 
 
 class ExpensesTest extends Specification {
-    def "test constructor - should getters should always return 0"(){
+    def "test constructor - getters should always return 0"(){
         given:
         def expensesTitles = Mock(ExpensesTitles)
         expensesTitles.getExpensesTitle(_) >> -1
@@ -86,7 +86,7 @@ class ExpensesTest extends Specification {
         expenses.getExpensesForSmallRepairsOfPoliticianOffice() == BigDecimal.ZERO
     }
 
-    def "empty record for small repairs and record is in ExpensesTitles should return value"(){
+    def "record for small repairs and record is in ExpensesTitles should return value"(){
         given:
         def expensesTitles = Mock(ExpensesTitles)
         def expenses = new Expenses(2012, expensesTitles)
