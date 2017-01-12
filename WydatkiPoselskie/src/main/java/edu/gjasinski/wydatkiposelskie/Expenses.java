@@ -22,9 +22,10 @@ public class Expenses {
         if (this.expensesMap.containsKey(id)) {
             this.sumOfExpenses = this.sumOfExpenses.subtract(this.expensesMap.get(id));
         }
-        BigDecimal bigDecimal = new BigDecimal(value);
-        this.expensesMap.put(id, bigDecimal);
-        this.sumOfExpenses = this.sumOfExpenses.add(bigDecimal);
+
+        BigDecimal valueBigDecimal = new BigDecimal(value);
+        this.expensesMap.put(id, valueBigDecimal);
+        this.sumOfExpenses = this.sumOfExpenses.add(valueBigDecimal);
     }
 
     public BigDecimal getSumOfExpenses(){

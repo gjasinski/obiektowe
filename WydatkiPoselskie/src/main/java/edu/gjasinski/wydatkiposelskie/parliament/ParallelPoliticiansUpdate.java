@@ -7,12 +7,12 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
 
-public class ParallelPoliticiansUpdate implements Runnable{
+class ParallelPoliticiansUpdate implements Runnable{
     private List<Politician> politicianList;
     private DownloadManager downloadManager;
     private ExpensesTitles expensesTitles;
 
-    public ParallelPoliticiansUpdate(List<Politician> politicianList, ExpensesTitles expensesTitles){
+    ParallelPoliticiansUpdate(List<Politician> politicianList, ExpensesTitles expensesTitles){
         this.politicianList = politicianList;
         this.expensesTitles = expensesTitles;
         downloadManager = new DownloadManager();
@@ -27,6 +27,7 @@ public class ParallelPoliticiansUpdate implements Runnable{
         JsonExpenses jsonExpenses;
         JsonTrips jsonTrips;
         JSONObject jsonObject;
+
         try {
             for (Politician politician : politicianList) {
                 String politicianDetails = this.downloadManager.downloadPoliticianTravelsAndExpensesJson(politician.getId());

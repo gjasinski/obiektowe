@@ -1,6 +1,6 @@
 package test.java.edu.gjasinski.wydatkiposelskie
 
-import main.java.edu.gjasinski.wydatkiposelskie.BusinessTrip
+import main.java.edu.gjasinski.wydatkiposelskie.Trip
 import main.java.edu.gjasinski.wydatkiposelskie.Expenses
 import main.java.edu.gjasinski.wydatkiposelskie.ExpensesTitles
 import main.java.edu.gjasinski.wydatkiposelskie.Politician
@@ -92,8 +92,8 @@ class PoliticianTest extends Specification {
         jsonObject2.getInt("liczba_dni") >> 20
         jsonObject2.getInt(_) >> 0
 
-        def businessTrip1 = Spy(BusinessTrip, constructorArgs:[jsonObject1])
-        def businessTrip2 = Spy(BusinessTrip, constructorArgs:[jsonObject2])
+        def businessTrip1 = Spy(Trip, constructorArgs:[jsonObject1])
+        def businessTrip2 = Spy(Trip, constructorArgs:[jsonObject2])
 
         when:
         politician.addBusinessTrip(businessTrip1)
@@ -117,8 +117,8 @@ class PoliticianTest extends Specification {
         jsonObject2.getString(_) >> "20"
         jsonObject2.getInt(_) >> 0
 
-        def businessTrip1 = Spy(BusinessTrip, constructorArgs:[jsonObject1])
-        def businessTrip2 = Spy(BusinessTrip, constructorArgs:[jsonObject2])
+        def businessTrip1 = Spy(Trip, constructorArgs:[jsonObject1])
+        def businessTrip2 = Spy(Trip, constructorArgs:[jsonObject2])
 
         when:
         politician.addBusinessTrip(businessTrip1)
@@ -144,8 +144,8 @@ class PoliticianTest extends Specification {
         jsonObject2.getString(_) >> "20"
         jsonObject2.getInt(_) >> 0
 
-        def businessTrip1 = Spy(BusinessTrip, constructorArgs:[jsonObject1])
-        def businessTrip2 = Spy(BusinessTrip, constructorArgs:[jsonObject2])
+        def businessTrip1 = Spy(Trip, constructorArgs:[jsonObject1])
+        def businessTrip2 = Spy(Trip, constructorArgs:[jsonObject2])
 
         when:
         politician1.addBusinessTrip(businessTrip1)

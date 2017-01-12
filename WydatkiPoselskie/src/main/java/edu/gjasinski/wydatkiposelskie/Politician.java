@@ -7,18 +7,18 @@ import java.util.List;
 public class Politician {
     private int id;
     private String lastNameFirstName;
-    private List<BusinessTrip> businessTripList;
+    private List<Trip> tripList;
     private List<Expenses> expensesList;
 
     public Politician(int id, String lastNameFirstName) {
         this.id = id;
         this.lastNameFirstName = lastNameFirstName;
         expensesList = new ArrayList<>();
-        businessTripList = new ArrayList<>();
+        tripList = new ArrayList<>();
     }
 
-    public void addBusinessTrip(BusinessTrip businessTrip) {
-        this.businessTripList.add(businessTrip);
+    public void addBusinessTrip(Trip trip) {
+        this.tripList.add(trip);
     }
 
     public void addExpenses(Expenses expenses) {
@@ -52,13 +52,13 @@ public class Politician {
     }
 
     public int getQuantityOfTips() {
-        return this.businessTripList.size();
+        return this.tripList.size();
     }
 
     public int getDurationOfTrips() {
         int durationOfTrips = 0;
-        for(BusinessTrip businessTrip: this.businessTripList){
-            durationOfTrips += businessTrip.getDurationOfTripInDays();
+        for(Trip trip : this.tripList){
+            durationOfTrips += trip.getDurationOfTripInDays();
         }
         return  durationOfTrips;
     }
@@ -67,15 +67,15 @@ public class Politician {
         BigDecimal costOfMostExpensiveTrip = BigDecimal.ZERO;
         BigDecimal costOfTrip;
 
-        for (BusinessTrip aBusinessTripList : this.businessTripList) {
-            costOfTrip = aBusinessTripList.getTotalCost();
+        for (Trip tripList : this.tripList) {
+            costOfTrip = tripList.getTotalCost();
             costOfMostExpensiveTrip = costOfMostExpensiveTrip.max(costOfTrip);
         }
         return costOfMostExpensiveTrip;
     }
 
     public boolean hadBeenInItaly() {
-        for (BusinessTrip aBusinessTripList : this.businessTripList) {
+        for (Trip aBusinessTripList : this.tripList) {
             if (aBusinessTripList.thisIsTripToItaly()) {
                 return true;
             }

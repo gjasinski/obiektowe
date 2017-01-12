@@ -29,6 +29,7 @@ public class CreateParliament{
         JSONArray jsonArray;
         List<Politician> politicianList;
         List<Thread> threads=new LinkedList<>();
+
         do{
             downloadedJsonData = downloadManager.downloadJson(jsonUrl);
             jsonPoliticians = new JsonPoliticians(downloadedJsonData);

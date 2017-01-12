@@ -11,7 +11,7 @@ public class Parliament {
     private HashMap<Integer, Politician> politicianHashMap;
     private HashMap<String, Integer> politicianLastNameFirstNameHashMap;
 
-    protected Parliament(HashMap<Integer, Politician> politicianHashMap,
+    Parliament(HashMap<Integer, Politician> politicianHashMap,
                       HashMap<String, Integer> politicianLastNameFirstNameHashMap){
         this.politicianHashMap = politicianHashMap;
         this.politicianLastNameFirstNameHashMap = politicianLastNameFirstNameHashMap;
@@ -59,7 +59,12 @@ public class Parliament {
         for(Map.Entry<Integer, Politician> entry : this.politicianHashMap.entrySet()){
             sumOfAllExpenses = sumOfAllExpenses.add(entry.getValue().getAllExpenses());
         }
+        if(quantity.compareTo(BigDecimal.ZERO) == 0 ){
+            return BigDecimal.ZERO;
+        }
+        else{
         return sumOfAllExpenses.divide(quantity, 2, 0);
+        }
     }
 
     public Politician getPoliticianIdWhoTravelsMost(){

@@ -16,16 +16,14 @@ public class JsonPoliticians {
     }
 
     public boolean hasNext(){
-        //return false;
         return jsonLinks.has("next");
     }
 
-    // TODO: 17.12.16 exception - when !hasNext()
     public URL getNextUrl() throws MalformedURLException{
         if(hasNext()){
             return new URL(jsonLinks.get("next").toString());
         }else{
-            throw new MalformedURLException("nie wiem cos dodoac");
+            throw new MalformedURLException("JSON is broken. There is no next link.");
         }
     }
 

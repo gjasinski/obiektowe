@@ -13,8 +13,8 @@ public class JsonTrips {
 
     public void addTrips(){
         for(int i = 0; i < this.tripsJsonArray.length(); i++){
-            BusinessTrip businessTrip = new BusinessTrip(this.tripsJsonArray.getJSONObject(i));
-            politician.addBusinessTrip(businessTrip);
+            Trip trip = new Trip(this.tripsJsonArray.getJSONObject(i));
+            politician.addBusinessTrip(trip);
         }
     }
 }

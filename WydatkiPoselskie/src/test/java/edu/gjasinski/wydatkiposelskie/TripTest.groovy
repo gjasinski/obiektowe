@@ -1,11 +1,11 @@
 package test.java.edu.gjasinski.wydatkiposelskie
 
-import main.java.edu.gjasinski.wydatkiposelskie.BusinessTrip
+import main.java.edu.gjasinski.wydatkiposelskie.Trip
 import org.json.JSONObject
 import spock.lang.Specification
 
 
-class BusinessTripTest extends Specification {
+class TripTest extends Specification {
     def "Test constructor and getters and this is not trip to italy"(){
         given:
         def jsonObject  =  Mock(JSONObject)
@@ -16,12 +16,12 @@ class BusinessTripTest extends Specification {
         jsonObject.getString("koszt_suma") >> "654321.87"
 
         when:
-        def businessTrip = new BusinessTrip(jsonObject)
+        def trip = new Trip(jsonObject)
 
         then:
-        businessTrip.getDurationOfTripInDays() == 30
-        businessTrip.getTotalCost() == 654321.87
-        !businessTrip.thisIsTripToItaly()
+        trip.getDurationOfTripInDays() == 30
+        trip.getTotalCost() == 654321.87
+        !trip.thisIsTripToItaly()
     }
 
     def "Test constructor and getters and this is trip to italy"(){
@@ -34,11 +34,11 @@ class BusinessTripTest extends Specification {
         jsonObject.getString("koszt_suma") >> "654321.87"
 
         when:
-        def businessTrip = new BusinessTrip(jsonObject)
+        def trip = new Trip(jsonObject)
 
         then:
-        businessTrip.getDurationOfTripInDays() == 30
-        businessTrip.getTotalCost() == 654321.87
-        businessTrip.thisIsTripToItaly()
+        trip.getDurationOfTripInDays() == 30
+        trip.getTotalCost() == 654321.87
+        trip.thisIsTripToItaly()
     }
 }

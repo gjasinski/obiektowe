@@ -4,7 +4,9 @@ package main.java.edu.gjasinski.wydatkiposelskie;
 import main.java.edu.gjasinski.wydatkiposelskie.parliament.CreateParliament;
 import main.java.edu.gjasinski.wydatkiposelskie.parliament.Parliament;
 
+import java.beans.IntrospectionException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,41 +16,52 @@ public class PoliticsSystem {
         InputParser inputParser = new InputParser();
         try{
             inputParser.argumentsAreValid(args);
-            CreateParliament createParliament = new CreateParliament(args[1]);
-            //createParliament.updatePoliticiansProfile();
-            Parliament parliament = createParliament.getParliament();
-            String computedInformation = "";
-
-            switch (Integer.parseInt(args[0])){
-                case 0: printHelp();
-                    break;
-                case 1: printListOfPoliticians(parliament.getListOfPoliticians());
-                    break;
-                case 2: printListOfPoliticians(parliament.getListOfPoliticiansInAlphabeticOrder());
-                    break;
-                case 3: computedInformation = parliament.getPoliticiansAverageSumOfAllExpenses().toString();
-                    break;
-                case 4: computedInformation = parliament.getPoliticianIdWhoTravelsMost().toString();
-                    break;
-                case 5: computedInformation = parliament.getPoliticianIdWithTheLongestTrip().toString();
-                    break;
-                case 6: computedInformation = parliament.getPoliticianIdWithTheMostExpensiveTrip().toString();
-                    break;
-                case 7: printListOfPoliticians(parliament.getListOfPoliticiansWhoHadBeenInItaly());
-                    break;
-                case 8: computedInformation = parliament.getPoliticianSumOfAllExpenses(args[1] + " " + args[3]).toString();
-                    break;
-                case 9: computedInformation = parliament.getPoliticianAllExpensesForSmallRepairsOfPoliticianOffice(args[1]
-                        + " " + args[3]).toString();
-                    break;
-                case 10: new GenerateAndWriteAllParliamentInfo(parliament);
-                    break;
+            if(Integer.parseInt(args[0]) == 0){
+                printHelp();
+                return;
             }
-
-            System.out.println(computedInformation);
+            CreateParliament createParliament = new CreateParliament(args[1]);
+            Parliament parliament = createParliament.getParliament();
+            if(parliament.getListOfPoliticians().isEmpty()){
+                System.out.println("There is no info about politicians");
+            }
+            else {
+                String computedInformation ="";
+                switch (Integer.parseInt(args[0])) {
+                    case 1:
+                        printListOfPoliticians(parliament.getListOfPoliticians());
+                        break;
+                    case 2:
+                        printListOfPoliticians(parliament.getListOfPoliticiansInAlphabeticOrder());
+                        break;
+                    case 3:
+                        computedInformation = parliament.getPoliticiansAverageSumOfAllExpenses().toString();
+                        break;
+                    case 4:
+                        computedInformation = parliament.getPoliticianIdWhoTravelsMost().toString();
+                        break;
+                    case 5:
+                        computedInformation = parliament.getPoliticianIdWithTheLongestTrip().toString();
+                        break;
+                    case 6:
+                        computedInformation = parliament.getPoliticianIdWithTheMostExpensiveTrip().toString();
+                        break;
+                    case 7:
+                        printListOfPoliticians(parliament.getListOfPoliticiansWhoHadBeenInItaly());
+                        break;
+                    case 8:
+                        computedInformation = parliament.getPoliticianSumOfAllExpenses(args[2] + " " + args[3]).toString();
+                        break;
+                    case 9:
+                        computedInformation = parliament.getPoliticianAllExpensesForSmallRepairsOfPoliticianOffice(args[2]
+                                + " " + args[3]).toString();
+                        break;
+                    }
+                System.out.println(computedInformation);
+                }
 
         }
-        catch (IOException | IllegalArgumentException e){
+        catch (IOException | IllegalArgumentException | InterruptedException e){
             System.out.println("Something went wrong:\n" + e.toString());
         }
         catch (Exception e){
