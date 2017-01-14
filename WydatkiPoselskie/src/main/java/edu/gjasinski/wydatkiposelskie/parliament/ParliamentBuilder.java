@@ -11,13 +11,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class CreateParliament{
+public class ParliamentBuilder {
     private HashMap<Integer, Politician> politicianHashMap;
     private HashMap<String, Integer> politicianLastNameFirstNameHashMap;
     private ExpensesTitles expensesTitles;
     private DownloadManager downloadManager;
 
-    public CreateParliament(String term) throws IOException, InterruptedException{
+    public ParliamentBuilder(String term) throws IOException, InterruptedException{
         this.politicianHashMap = new HashMap<>();
         this.politicianLastNameFirstNameHashMap = new HashMap<>();
         this.downloadManager = new DownloadManager();

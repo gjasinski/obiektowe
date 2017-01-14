@@ -1,12 +1,10 @@
 package main.java.edu.gjasinski.wydatkiposelskie;
 
 
-import main.java.edu.gjasinski.wydatkiposelskie.parliament.CreateParliament;
+import main.java.edu.gjasinski.wydatkiposelskie.parliament.ParliamentBuilder;
 import main.java.edu.gjasinski.wydatkiposelskie.parliament.Parliament;
 
-import java.beans.IntrospectionException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,8 +18,8 @@ public class PoliticsSystem {
                 printHelp();
                 return;
             }
-            CreateParliament createParliament = new CreateParliament(args[1]);
-            Parliament parliament = createParliament.getParliament();
+            ParliamentBuilder parliamentBuilder = new ParliamentBuilder(args[1]);
+            Parliament parliament = parliamentBuilder.getParliament();
             if(parliament.getListOfPoliticians().isEmpty()){
                 System.out.println("There is no info about politicians");
             }

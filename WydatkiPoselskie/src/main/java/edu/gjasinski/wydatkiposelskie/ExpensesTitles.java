@@ -9,18 +9,14 @@ public class ExpensesTitles {
         this.expensesTitles = new HashMap<>();
     }
 
-    public int setExpensesTitleId(String title) {
+    public synchronized int setExpensesTitleId(String title) {
         if(this.expensesTitles.containsKey(title)){
             return this.expensesTitles.get(title);
         }else{
-            return set(title);
+            int id = this.expensesTitles.size();
+            this.expensesTitles.put(title, id);
+            return id;
         }
-    }
-
-    private synchronized int set(String title){
-        int id = this.expensesTitles.size();
-        this.expensesTitles.put(title, id);
-        return id;
     }
 
     public int getExpensesTitle(String title) {
