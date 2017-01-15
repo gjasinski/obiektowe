@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" http-equiv="Content-Type" content="width=device-width, initial-scale=1" charset="utf-8">
     <title>WebsSockets</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -10,8 +10,12 @@
     <input id="message" placeholder="Type your message">
     <button id="send">Send</button>
 </div>
+<ul id="chanellist"></ul>
 <ul id="userlist"> <!-- Built by JS --> </ul>
 <div id="chat">    <!-- Built by JS --> </div>
-<script src="websocketDemo.js"></script>
+
+<script src="UsernameCreator.js"></script>
+<script src="Chat.js"></script>
+<script src="WebSocket.js"></script>
 </body>
 </html>

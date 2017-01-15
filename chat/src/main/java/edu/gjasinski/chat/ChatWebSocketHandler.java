@@ -12,9 +12,10 @@ public class ChatWebSocketHandler {
 
     @OnWebSocketConnect
     public void onConnect(Session user) throws Exception {
-        String username = "User" + Chat.nextUserNumber++;
-        Chat.userUsernameMap.put(user, username);
-        Chat.broadcastMessage(sender = "Server", msg = (username + " joined the chat"));
+        //String username = "User" ;
+        //Chat.userUsernameMap.put(user, username);
+        //String username = Chat.userUsernameMap.get(user);
+        //Chat.broadcastMessage(sender = "Server", msg = (username + " joined the chat"));
     }
 
     @OnWebSocketClose
@@ -25,8 +26,12 @@ public class ChatWebSocketHandler {
     }
 
     @OnWebSocketMessage
-    public void onMessage(Session user, String message) {
-        Chat.broadcastMessage(sender = Chat.userUsernameMap.get(user), msg = message);
+    public void onMessage(Session user, String message){
+        //Chat.broadcastMessage(sender = Chat.userUsernameMap.get(user), msg = message);
+        try{JsonEngine.processJson(user, message);
+        }
+        catch (Exception ex){
+            System.out.print(ex.toString());
+        }
     }
-
 }
