@@ -25,9 +25,13 @@ function updateChat(msg) {
     var data = JSON.parse(msg.data);
     insert("chat", data.userMessage);
     id("userlist").innerHTML = "";
-    data.userlist.forEach(function (user) {
+    data.userList.forEach(function (user) {
         insert("userlist", "<li>" + user + "</li>");
     });
+    data.channelList.forEach(function (channel) {
+        insert("channellist", "<button id=\"" + channel + "\">" + channel + "</button>");
+    })
+    insert("channellist", "<li>Channel List</li>");
 }
 
 //Helper function for inserting HTML as the first child of an element

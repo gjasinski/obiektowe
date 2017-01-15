@@ -5,12 +5,11 @@ import org.json.JSONObject;
 
 public class UsernameCreator {
     public static void createUsername(Session session, String username) throws Exception {
-        if(Chat.userUsernameMap.containsValue(username)){
-            session.getRemote().sendString(String.valueOf(new JSONObject().put("error", "username_exits")));
-        }
-        else {
-            Chat.userUsernameMap.put(session, username);
+        try{
+            Chat.addUser(session, username);
             Chat.broadcastMessage("Server: ", username + " joined the chat");
+        }catch (IllegalArgumentException ex){
+            session.getRemote().sendString(String.valueOf(new JSONObject().put("error", "username_exits")));
         }
     }
 }

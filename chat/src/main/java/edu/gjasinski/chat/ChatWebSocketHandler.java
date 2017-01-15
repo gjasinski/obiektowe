@@ -13,21 +13,25 @@ public class ChatWebSocketHandler {
     @OnWebSocketConnect
     public void onConnect(Session user) throws Exception {
         //String username = "User" ;
-        //Chat.userUsernameMap.put(user, username);
-        //String username = Chat.userUsernameMap.get(user);
+        //Chat.usernameMap.put(user, username);
+        //String username = Chat.usernameMap.get(user);
         //Chat.broadcastMessage(sender = "Server", msg = (username + " joined the chat"));
     }
 
     @OnWebSocketClose
     public void onClose(Session user, int statusCode, String reason) {
-        String username = Chat.userUsernameMap.get(user);
-        Chat.userUsernameMap.remove(user);
-        Chat.broadcastMessage(sender = "Server", msg = (username + " left the chat"));
+        try {
+            String username = Chat.getUsername(user);
+            Chat.removeUser(user);
+            Chat.broadcastMessage(sender = "Server", msg = (username + " left the chat"));
+        }catch (IllegalArgumentException ex){
+            System.out.println("OnWebSocketClose - " + ex.toString());
+        }
     }
 
     @OnWebSocketMessage
     public void onMessage(Session user, String message){
-        //Chat.broadcastMessage(sender = Chat.userUsernameMap.get(user), msg = message);
+        //Chat.broadcastMessage(sender = Chat.usernameMap.get(user), msg = message);
         try{JsonEngine.processJson(user, message);
         }
         catch (Exception ex){

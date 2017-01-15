@@ -33,6 +33,20 @@ li {
     margin: 0 0 5px 0
 }
 
+#channellist{
+    position: fixed;
+    left: 50%;
+    list-style: none;
+    margin-left: -400px;
+    background: #f0f0f9;
+    padding: 5px 10px;
+    width: 150px;
+    top: 11px;
+}
+#channel{
+    width: 130px;
+}
+
 #userlist {
     position: fixed;
     left: 50%;

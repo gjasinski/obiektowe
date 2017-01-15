@@ -1,7 +1,6 @@
 package edu.gjasinski.chat;
 
 import org.eclipse.jetty.websocket.api.Session;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 
@@ -18,7 +17,7 @@ public class JsonEngine {
                 break;
 
             case "chatMessage":
-                Chat.broadcastMessage(Chat.userUsernameMap.get(session), message);
+                Chat.broadcastMessage(Chat.getUsername(session), message);
                 break;
         }
     }

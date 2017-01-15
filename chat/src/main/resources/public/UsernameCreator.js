@@ -5,7 +5,7 @@ function usernameAlreadyExists() {
 
 function setUsername() {
     var cookie = getCookie("username");
-    var username = prompt("Type your username: ", "cookie");
+    var username = prompt("Type your username: ", cookie);
 
     if (username == null){
         alert("You can't be without username");
