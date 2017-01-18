@@ -7,7 +7,7 @@ public class UsernameCreator {
     public static void createUsername(Session session, String username) throws Exception {
         try{
             Chat.addUser(session, username);
-            Chat.broadcastMessage("Server: ", username + " joined the chat");
+            Chat.refreshChannelList(session);
         }catch (IllegalArgumentException ex){
             session.getRemote().sendString(String.valueOf(new JSONObject().put("error", "username_exits")));
         }

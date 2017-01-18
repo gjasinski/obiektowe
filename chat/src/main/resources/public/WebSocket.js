@@ -6,10 +6,24 @@ webSocket.onopen = setUsername();
 
 function handleMessage(msg) {
     var data = JSON.parse(msg.data);
+    alert(data.channelName);
     if (data.error != null) {
-        usernameAlreadyExists();
+        switch (data.error){
+            case "already_joined": alert("Already joined to channel!");
+                break;
+            case "channel_exists": alert("Channel already exists!");
+                break;
+            case "username_exists": usernameAlreadyExists();
+                break;
+            default: alert(data.error);
+                break;
+        }
     }
     else {
-        updateChat(msg);
+        if(data.refresh != null){
+            refreshChannelList(msg);
+        }else {
+            updateChat(msg);
+        }
     }
 }

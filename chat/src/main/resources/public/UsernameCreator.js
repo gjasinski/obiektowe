@@ -4,6 +4,11 @@ function usernameAlreadyExists() {
 }
 
 function setUsername() {
+    id("userlist").style.visibility = "hidden";
+    id("chat").style.visibility = "hidden";
+    id("chatControls").style.visibility = "hidden";
+    id("channellist").style.visibility = "hidden";
+    id("channellist").style.marginLeft = "-100px";
     var cookie = getCookie("username");
     var username = prompt("Type your username: ", cookie);
 
@@ -20,7 +25,7 @@ function setUsername() {
         setUsername();
     }else {
         setCookie("username", username, 1);
-        webSocket.send(buildJson("username", username));
+        webSocket.send(buildSimpleJson("username", username));
     }
 }
 
@@ -45,6 +50,49 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
-function buildJson(jsonObject1, jsonObject2) {
-    return "{\"messageType\":\"" + jsonObject1 + "\",\"message\":\"" + jsonObject2 + "\"}"
+function buildSimpleJson(jsonObject1, jsonObject2) {
+    return "{\"messageType\":\"" + jsonObject1 + "\",\"message\":\"" + jsonObject2 + "\"}";
+}
+
+function buildJsonEntity(key, value) {
+    return "\"" + key + "\":\"" + value + "\"";
+}
+
+
+
+function refreshChannelList(msg) {
+    id("channellist").style.visibility = "visible";
+    var data = JSON.parse(msg.data);
+    id("channellist").innerHTML = "";
+    insert("channellist", "<button id=\"addchannel\">Add new channel</button>");
+    insert("channellist", "<button id=\"leavechannel\">Leave channel</button>");
+    data.channelList.forEach(function (channel) {
+        insert("channellist", "<button id=\"" + channel + "\">" + channel + "</button>");
+        id(channel).addEventListener("click", function(){alert(channel);});
+    });
+    insert("channellist", "<li>Channel List</li>");
+    id("addchannel").addEventListener("click", function() {addNewChannelFirstVisit();});
+}
+
+function addNewChannelFirstVisit() {
+    channelName = prompt("Type name of new channel: ", "New channel")
+    if (channelName == null){
+        return;
+    }
+    channelName = channelName.replace(/[^a-zA-Z0-9 ]/g, "");
+    if (channelName !== "") {
+        webSocket.send(buildSimpleJson("newChannelName", channelName));
+        webSocket.send(buildSimpleJson("joinToChannelName", channelName))
+        showChatFirstVisit(channelName);
+    }
+}
+
+function showChatFirstVisit(channelname) {
+    id("userlist").style.visibility = "visible";
+    id("chat").style.visibility = "visible";
+    id("chatControls").style.visibility = "visible";
+    id("channellist").style.visibility = "visible";
+    id("channellist").style.marginLeft = "-450px";
+    currentlyVisibleChannel = channelname;
+    showNewChannel(channelname);
 }

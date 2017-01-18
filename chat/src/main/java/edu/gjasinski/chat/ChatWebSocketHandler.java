@@ -21,9 +21,9 @@ public class ChatWebSocketHandler {
     @OnWebSocketClose
     public void onClose(Session user, int statusCode, String reason) {
         try {
-            String username = Chat.getUsername(user);
             Chat.removeUser(user);
-            Chat.broadcastMessage(sender = "Server", msg = (username + " left the chat"));
+            //Chat.broadcastMessage(sender = "Server", msg = (username + " left the chat"));
+            // TODO: 15.01.17 add message of leaving chat
         }catch (IllegalArgumentException ex){
             System.out.println("OnWebSocketClose - " + ex.toString());
         }
@@ -32,7 +32,8 @@ public class ChatWebSocketHandler {
     @OnWebSocketMessage
     public void onMessage(Session user, String message){
         //Chat.broadcastMessage(sender = Chat.usernameMap.get(user), msg = message);
-        try{JsonEngine.processJson(user, message);
+        try{
+            JsonEngine.processJson(user, message);
         }
         catch (Exception ex){
             System.out.print(ex.toString());
