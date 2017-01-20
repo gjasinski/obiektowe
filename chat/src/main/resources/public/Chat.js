@@ -1,11 +1,9 @@
 var currentlyVisibleChannel;
 
-//Send message if "Send" is clicked
 id("send").addEventListener("click", function () {
     sendMessage(id("message").value);
 });
 
-//Send message if enter is pressed in the input field
 id("message").addEventListener("keypress", function (e) {
     if (e.keyCode === 13) { sendMessage(e.target.value); }
 });
@@ -40,11 +38,16 @@ function updateChat(msg) {
     insert("channellist", "<button id=\"leavechannel\">Leave channel</button>");
     data.channelList.forEach(function (channel) {
         insert("channellist", "<button id=\"" + channel + "\">" + channel + "</button>");
-        id(channel).addEventListener("click", function(){changeVisibleChannel(channel)});
+        id(channel).addEventListener("click", function(){
+            showChannel(channel);
+        });
     });
     insert("channellist", "<li>Channel List</li>");
-    id("addchannel").addEventListener("click", function() {addNewChannel();});
-    id("leavechannel").addEventListener("click", function(){alert("leavechanel");});
+    id("addchannel").addEventListener("click", function() {
+        var channelName = addNewChannel();
+        showChannel(channelName);
+    });
+    id("leavechannel").addEventListener("click", function(){leaveChannel();});
 }
 
 function addNewChannel() {
@@ -56,22 +59,36 @@ function addNewChannel() {
     if (channelName !== "") {
         webSocket.send(buildSimpleJson("newChannelName", channelName));
     }
-    joinToChannel(channelName);
-    showNewChannel(channelName);
+    return channelName;
 }
 
-function showNewChannel(channelName) {
-    insert("chat", "<div id=\"chat_" + channelName + "\"></div>");
-    changeVisibleChannel(channelName);
+function showChannel(channelName) {
+    if (id("chat_" + channelName) == null) {
+        insert("chat", "<div id=\"chat_" + channelName + "\"></div>");
+        joinToChannel(channelName);
+        changeVisibleChannel(channelName)
+    }
+    else{
+        changeVisibleChannel(channelName);
+    }
 }
 function changeVisibleChannel(channelName) {
-    id("chat_" + currentlyVisibleChannel).style.visibility = "hidden"
+    if(currentlyVisibleChannel != null && id("chat_" + currentlyVisibleChannel) != null){
+        id("chat_" + currentlyVisibleChannel).style.visibility = "hidden"
+    }
     id("chat_" + channelName).style.visibility = "visible";
     currentlyVisibleChannel = channelName;
 }
 
 function joinToChannel(channelName) {
         webSocket.send(buildSimpleJson("joinToChannelName", channelName));
+}
+
+function leaveChannel() {
+    if(id("chat_" + currentlyVisibleChannel) != null){
+        webSocket.send(buildSimpleJson("leaveChannel", currentlyVisibleChannel));
+        id("chat_" + currentlyVisibleChannel).remove();
+    }
 }
 
 //Helper function for inserting HTML as the first child of an element

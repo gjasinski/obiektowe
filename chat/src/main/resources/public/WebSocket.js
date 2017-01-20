@@ -3,10 +3,10 @@ var webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port 
 webSocket.onmessage = function (msg) {handleMessage(msg); };
 webSocket.onclose = function () { alert("WebSocket connection closed") };
 webSocket.onopen = setUsername();
+var logged;
 
 function handleMessage(msg) {
     var data = JSON.parse(msg.data);
-    alert(data.channelName);
     if (data.error != null) {
         switch (data.error){
             case "already_joined": alert("Already joined to channel!");
@@ -21,7 +21,16 @@ function handleMessage(msg) {
     }
     else {
         if(data.refresh != null){
-            refreshChannelList(msg);
+            switch (data.refresh){
+                case "active_channel":
+                    changeVisibleChannel(data.channelName);
+                    break;
+                case "channel_list":
+                    refreshChannelList(msg);
+                    break;
+                default: alert(data.refresh);
+                    break;
+            }
         }else {
             updateChat(msg);
         }

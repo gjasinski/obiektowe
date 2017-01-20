@@ -28,6 +28,9 @@ public class JsonEngine {
             case "joinToChannelName":
                 ChannelHandler.joinToChannel(session, message);
                 break;
+            case "leaveChannel":
+                ChannelHandler.leaveChannel(session, message);
+                break;
             default:
                 throw new IllegalArgumentException("JsonEngine: " + messageType);
         }

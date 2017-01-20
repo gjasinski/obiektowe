@@ -138,8 +138,38 @@ public class Chat {
         user.getRemote().sendString(String.valueOf(new JSONObject()
                 .put("refresh", "channel_list")
                 .put("channelList", channelMap.keySet())));
-            } catch (Exception e) {
-                e.printStackTrace();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void refreshChannelListAllUsers(){
+        usernameToUser.values().stream().map(User::getSession)
+                .forEach(Chat::refreshChannelList);
+    }
+
+    public static void sendActiveNameChannel(Session user) {
+        String channelName = "";
+
+        for (Channel channel: channelMap.values()) {
+            if(channel.isMember(getUsername(user))){
+                channelName = channel.getChannelName();
+                break;
             }
+        }
+
+        if(channelName.equals("")){
+            return;
+        }
+
+        try{
+            user.getRemote().sendString(String.valueOf(new JSONObject()
+                    .put("refresh", "active_channel")
+                    .put("channelName", channelName)));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

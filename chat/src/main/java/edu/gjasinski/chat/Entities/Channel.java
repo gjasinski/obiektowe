@@ -21,4 +21,8 @@ public class Channel {
     public void addUserToChanner(String username){
 
     }
+
+    public boolean isMember(String username) {
+        return userMap.containsKey(username);
+    }
 }

@@ -9,7 +9,7 @@ public class UsernameCreator {
             Chat.addUser(session, username);
             Chat.refreshChannelList(session);
         }catch (IllegalArgumentException ex){
-            session.getRemote().sendString(String.valueOf(new JSONObject().put("error", "username_exits")));
+            session.getRemote().sendString(String.valueOf(new JSONObject().put("error", "username_exists")));
         }
     }
 }

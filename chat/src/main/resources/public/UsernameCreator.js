@@ -4,6 +4,7 @@ function usernameAlreadyExists() {
 }
 
 function setUsername() {
+    logged = false;
     id("userlist").style.visibility = "hidden";
     id("chat").style.visibility = "hidden";
     id("chatControls").style.visibility = "hidden";
@@ -65,13 +66,14 @@ function refreshChannelList(msg) {
     var data = JSON.parse(msg.data);
     id("channellist").innerHTML = "";
     insert("channellist", "<button id=\"addchannel\">Add new channel</button>");
-    insert("channellist", "<button id=\"leavechannel\">Leave channel</button>");
+    if(logged) insert("channellist", "<button id=\"leavechannel\">Leave channel</button>");
     data.channelList.forEach(function (channel) {
         insert("channellist", "<button id=\"" + channel + "\">" + channel + "</button>");
-        id(channel).addEventListener("click", function(){alert(channel);});
+        id(channel).addEventListener("click", function(){showChannelFirstVisit(channel);});
     });
     insert("channellist", "<li>Channel List</li>");
     id("addchannel").addEventListener("click", function() {addNewChannelFirstVisit();});
+    if(logged) id("leavechannel").addEventListener("click", function(){leaveChannel();});
 }
 
 function addNewChannelFirstVisit() {
@@ -82,17 +84,17 @@ function addNewChannelFirstVisit() {
     channelName = channelName.replace(/[^a-zA-Z0-9 ]/g, "");
     if (channelName !== "") {
         webSocket.send(buildSimpleJson("newChannelName", channelName));
-        webSocket.send(buildSimpleJson("joinToChannelName", channelName))
-        showChatFirstVisit(channelName);
+        showChannelFirstVisit(channelName);
     }
 }
 
-function showChatFirstVisit(channelname) {
+function showChannelFirstVisit(channelname) {
     id("userlist").style.visibility = "visible";
     id("chat").style.visibility = "visible";
     id("chatControls").style.visibility = "visible";
     id("channellist").style.visibility = "visible";
     id("channellist").style.marginLeft = "-450px";
+    logged = true;
     currentlyVisibleChannel = channelname;
-    showNewChannel(channelname);
+    showChannel(channelname);
 }
