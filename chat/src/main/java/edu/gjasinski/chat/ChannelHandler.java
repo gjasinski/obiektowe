@@ -5,33 +5,39 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ChannelHandler {
-    public static void createNewChannel(Session session, String channelName) throws Exception{
+    private ChatHandler chatHandler;
+
+    public ChannelHandler(ChatHandler chatHandler){
+        this.chatHandler = chatHandler;
+    }
+
+    public void createNewChannel(Session session, String channelName) throws Exception{
         try{
-            Chat.addChannel(channelName);
-            Chat.refreshChannelListAllUsers();
+            chatHandler.addChannel(channelName);
+            chatHandler.refreshChannelListAllUsers();
         }catch (IllegalArgumentException ex){
             sendMassage(session, "error", "channel_exists");
         }
     }
 
-    public static void joinToChannel(Session session, String channelName) throws Exception{
+    public void joinToChannel(Session session, String channelName) throws Exception{
         try {
-            Chat.addUserToChannel(session, channelName);
-            Chat.broadcastMessage(channelName, "Server", Chat.getUsername(session) + " joined the chat");
+            chatHandler.addUserToChannel(session, channelName);
+            chatHandler.broadcastMessage(channelName, "Server", chatHandler.getUsername(session) + " joined the chat");
         }catch (IllegalArgumentException ex){
             sendMassage(session, "error", "already_joined");
         }
     }
 
-    public static void leaveChannel(Session session, String channelName) {
-        Chat.removeUserFromChannel(session, channelName);
-        Chat.broadcastMessage(channelName, "Server", Chat.getUsername(session) + " left the chat");
-        Chat.refreshChannelList(session);
-        Chat.sendActiveNameChannel(session);
+    public void leaveChannel(Session session, String channelName) {
+        chatHandler.removeUserFromChannel(session, channelName);
+        chatHandler.broadcastMessage(channelName, "Server", chatHandler.getUsername(session) + " left the chat");
+        chatHandler.refreshChannelList(session);
+        chatHandler.sendActiveNameChannel(session);
     }
 
 
-    private static void sendMassage(Session session, String category, String description) throws Exception {
+    private void sendMassage(Session session, String category, String description) throws Exception {
         session.getRemote().sendString(String.valueOf(new JSONObject().put(category, description)));
     }
 
