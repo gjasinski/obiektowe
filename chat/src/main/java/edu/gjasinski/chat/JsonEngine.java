@@ -1,5 +1,6 @@
 package edu.gjasinski.chat;
 
+import org.apache.tools.ant.taskdefs.Sync;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
@@ -10,16 +11,21 @@ import org.json.JSONObject;
 public class JsonEngine {
     private ChatHandler chatHandler;
     private ChannelHandler channelHandler;
+    private Repository repository;
 
-    public JsonEngine(ChatHandler chatHandler, ChannelHandler channelHandler){
+    public JsonEngine(ChatHandler chatHandler, ChannelHandler channelHandler, Repository repository){
         this.chatHandler = chatHandler;
         this.channelHandler = channelHandler;
+        this.repository = repository;
     }
 
     @OnWebSocketClose
     public void onClose(Session user, int statusCode, String reason) {
         try {
-            chatHandler.removeUser(user);
+            System.out.print("AAAAAA");
+            repository.getUserChannelCollection(user).forEach(channel -> chatHandler.broadcastMessage(
+                    channel.getChannelName(), "Server", repository.getUsername(user) + " left the chat"));
+            repository.removeUser(user);
         }catch (IllegalArgumentException ex){
             System.out.println("OnWebSocketClose - " + ex.toString());
         }
@@ -32,6 +38,7 @@ public class JsonEngine {
         }
         catch (Exception ex){
             System.out.print(ex.toString());
+            ex.printStackTrace();
         }
     }
 
@@ -47,7 +54,7 @@ public class JsonEngine {
                 break;
 
             case "chatMessage":
-                chatHandler.broadcastMessage(jsonObject.getString("channelName"), chatHandler.getUsername(session), message);
+                chatHandler.broadcastMessage(jsonObject.getString("channelName"), repository.getUsername(session), message);
                 break;
 
             case "newChannelName":

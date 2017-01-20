@@ -3,7 +3,9 @@ package edu.gjasinski.chat.Entities;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.eclipse.jetty.websocket.api.Session;
 
+import java.net.ServerSocket;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,8 +20,14 @@ public class Channel {
     @Setter
     private Map<String, User> userMap;
 
-    public void addUserToChanner(String username){
-
+    public void addUserToChannel(String username, User user){
+        if(userMap.containsKey(username)){
+            throw new IllegalArgumentException("User already joined channel!");
+        }
+        else{
+            userMap.put(username, user);
+            System.out.println("dodalem nowego czloka");
+        }
     }
 
     public boolean isMember(String username) {

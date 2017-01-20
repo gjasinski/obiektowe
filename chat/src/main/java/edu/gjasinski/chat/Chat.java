@@ -7,11 +7,12 @@ public class Chat {
 
     public static void main(String[] args) {
         try {
-            ChatHandler chatHandler = new ChatHandler();
-            ChannelHandler channelHandler = new ChannelHandler(chatHandler);
-            JsonEngine jsonEngine = new JsonEngine(chatHandler, channelHandler);
+            Repository repository = new Repository();
+            ChatHandler chatHandler = new ChatHandler(repository);
+            ChannelHandler channelHandler = new ChannelHandler(chatHandler, repository);
+            JsonEngine jsonEngine = new JsonEngine(chatHandler, channelHandler, repository);
 
-            chatHandler.addChannel("Chatbot");
+            repository.addChannel("Chatbot");
 
             staticFileLocation("/public");
             webSocket("/chat", jsonEngine);
