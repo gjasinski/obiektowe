@@ -7,13 +7,13 @@ import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 import org.json.JSONObject;
 
 @WebSocket
-class JsonManager {
+public class WebSocketManager {
     private ChatManager chatManager;
     private ChannelManager channelManager;
     private Repository repository;
     private BotManager botManager;
 
-    JsonManager(ChatManager chatManager, ChannelManager channelManager, Repository repository) throws Exception{
+    public WebSocketManager(ChatManager chatManager, ChannelManager channelManager, Repository repository) throws Exception{
         this.chatManager = chatManager;
         this.channelManager = channelManager;
         this.repository = repository;
@@ -69,7 +69,7 @@ class JsonManager {
                 channelManager.leaveChannel(session, message);
                 break;
             default:
-                throw new IllegalArgumentException("JsonManager: " + messageType);
+                throw new IllegalArgumentException("WebSocketManager: " + messageType);
         }
     }
 }

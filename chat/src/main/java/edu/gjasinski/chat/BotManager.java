@@ -4,16 +4,16 @@ import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.util.Calendar;
 
-public class BotManager {
+class BotManager {
     private ChatManager chatManager;
     private WeatherManager weatherManager;
 
-    public BotManager(ChatManager chatManager) throws Exception{
+    BotManager(ChatManager chatManager) throws Exception{
         this.chatManager = chatManager;
         this.weatherManager = new WeatherManager();
     }
 
-    public void readChatMessage(String message) throws Exception{
+    void readChatMessage(String message) throws Exception{
         switch (message){
             case "What hour is it?":
                 sendHourToUser();
@@ -25,6 +25,7 @@ public class BotManager {
                 sendWeatherToUser();
                 break;
         }
+
     }
 
     private void sendWeatherToUser() throws Exception {
@@ -35,7 +36,7 @@ public class BotManager {
     private void sendDayOfWeekToUser() {
         Calendar calendar = Calendar.getInstance();
         int dayOfWeek = (calendar.get(Calendar.DAY_OF_WEEK) + 6) % 7 - 1;
-        chatManager.broadcastMessage("Chatbot", "Server", "Today is " + DayOfWeek.values()[dayOfWeek]);
+        chatManager.broadcastMessage("Chatbot", "Server", "Today is " + DayOfWeek.values()[dayOfWeek].toString().toLowerCase());
     }
 
     private void sendHourToUser() {
