@@ -81,7 +81,7 @@ function addNewChannelFirstVisit() {
     if (channelName == null){
         return;
     }
-    channelName = channelName.replace(/[^a-zA-Z0-9 ]/g, "");
+    channelName = channelName.replace(/[^a-zA-Z0-9 ,?]/g, "");
     if (channelName !== "") {
         webSocket.send(buildSimpleJson("newChannelName", channelName));
         showChannelFirstVisit(channelName);

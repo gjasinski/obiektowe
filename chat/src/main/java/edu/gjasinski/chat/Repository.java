@@ -27,7 +27,7 @@ public class Repository {
 
     public void addChannel(String channelName){
         if(channelMap.containsKey(channelName)){
-            throw new IllegalArgumentException("ChannelHandler already exists!");
+            throw new IllegalArgumentException("ChannelManager already exists!");
         }
         else {
             Channel channel = Channel.builder().id(currentChannelId++).channelName(channelName)

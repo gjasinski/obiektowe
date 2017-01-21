@@ -10,10 +10,10 @@ import java.util.Date;
 
 import static j2html.TagCreator.*;
 
-public class ChatHandler {
+public class ChatManager {
     private Repository repository;
 
-    public ChatHandler(Repository repository){
+    public ChatManager(Repository repository){
         this.repository = repository;
     }
 

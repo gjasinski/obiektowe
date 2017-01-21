@@ -12,7 +12,7 @@ function sendMessage(message) {
     if (message == null){
         return;
     }
-    message = message.replace(/[^a-zA-Z0-9 ]/g, "");
+    message = message.replace(/[^a-zA-Z0-9 ,?]/g, "");
     if (message !== "") {
         webSocket.send("{" +
                 buildJsonEntity("messageType", "chatMessage") + "," +
@@ -55,7 +55,7 @@ function addNewChannel() {
     if (channelName == null){
         return;
     }
-    channelName = channelName.replace(/[^a-zA-Z0-9 ]/g, "");
+    channelName = channelName.replace(/[^a-zA-Z0-9 ,?]/g, "");
     if (channelName !== "") {
         webSocket.send(buildSimpleJson("newChannelName", channelName));
     }

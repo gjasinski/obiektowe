@@ -1,22 +1,21 @@
 package edu.gjasinski.chat;
 
 import org.eclipse.jetty.websocket.api.Session;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ChannelHandler {
-    private ChatHandler chatHandler;
+public class ChannelManager {
+    private ChatManager chatManager;
     private Repository repository;
 
-    public ChannelHandler(ChatHandler chatHandler, Repository repository){
-        this.chatHandler = chatHandler;
+    public ChannelManager(ChatManager chatManager, Repository repository){
+        this.chatManager = chatManager;
         this.repository = repository;
     }
 
     public void createNewChannel(Session session, String channelName) throws Exception{
         try{
             repository.addChannel(channelName);
-            chatHandler.refreshChannelListAllUsers();
+            chatManager.refreshChannelListAllUsers();
         }catch (IllegalArgumentException ex){
             sendMassage(session, "error", "channel_exists");
         }
@@ -25,7 +24,7 @@ public class ChannelHandler {
     public void joinToChannel(Session session, String channelName) throws Exception{
         try {
             repository.addUserToChannel(session, channelName);
-            chatHandler.broadcastMessage(channelName, "Server", repository.getUsername(session) + " joined the chat");
+            chatManager.broadcastMessage(channelName, "Server", repository.getUsername(session) + " joined the chat");
         }catch (IllegalArgumentException ex){
             sendMassage(session, "error", "already_joined");
         }
@@ -33,9 +32,9 @@ public class ChannelHandler {
 
     public void leaveChannel(Session session, String channelName) {
         repository.removeUserFromChannel(session, channelName);
-        chatHandler.broadcastMessage(channelName, "Server", repository.getUsername(session) + " left the chat");
-        chatHandler.refreshChannelList(session);
-        chatHandler.sendActiveNameChannel(session);
+        chatManager.broadcastMessage(channelName, "Server", repository.getUsername(session) + " left the chat");
+        chatManager.refreshChannelList(session);
+        chatManager.sendActiveNameChannel(session);
     }
 
 

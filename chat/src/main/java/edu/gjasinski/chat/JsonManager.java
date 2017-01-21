@@ -1,6 +1,5 @@
 package edu.gjasinski.chat;
 
-import org.apache.tools.ant.taskdefs.Sync;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
@@ -8,22 +7,24 @@ import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 import org.json.JSONObject;
 
 @WebSocket
-public class JsonEngine {
-    private ChatHandler chatHandler;
-    private ChannelHandler channelHandler;
+public class JsonManager {
+    private ChatManager chatManager;
+    private ChannelManager channelManager;
     private Repository repository;
+    private BotManager botManager;
 
-    public JsonEngine(ChatHandler chatHandler, ChannelHandler channelHandler, Repository repository){
-        this.chatHandler = chatHandler;
-        this.channelHandler = channelHandler;
+    public JsonManager(ChatManager chatManager, ChannelManager channelManager, Repository repository) throws Exception{
+        this.chatManager = chatManager;
+        this.channelManager = channelManager;
         this.repository = repository;
+        this.botManager = new BotManager(chatManager);
     }
 
     @OnWebSocketClose
     public void onClose(Session user, int statusCode, String reason) {
         try {
             System.out.print("AAAAAA");
-            repository.getUserChannelCollection(user).forEach(channel -> chatHandler.broadcastMessage(
+            repository.getUserChannelCollection(user).forEach(channel -> chatManager.broadcastMessage(
                     channel.getChannelName(), "Server", repository.getUsername(user) + " left the chat"));
             repository.removeUser(user);
         }catch (IllegalArgumentException ex){
@@ -50,25 +51,28 @@ public class JsonEngine {
         System.out.println(jsonObject.toString());
         switch (messageType){
             case "username" :
-                chatHandler.createUsername(session, message);
+                chatManager.createUsername(session, message);
                 break;
 
             case "chatMessage":
-                chatHandler.broadcastMessage(jsonObject.getString("channelName"), repository.getUsername(session), message);
+                chatManager.broadcastMessage(jsonObject.getString("channelName"), repository.getUsername(session), message);
+                if(jsonObject.getString("channelName").equals("Chatbot")){
+                    botManager.readChatMessage(message);
+                }
                 break;
 
             case "newChannelName":
-                channelHandler.createNewChannel(session, message);
+                channelManager.createNewChannel(session, message);
                 break;
 
             case "joinToChannelName":
-                channelHandler.joinToChannel(session, message);
+                channelManager.joinToChannel(session, message);
                 break;
             case "leaveChannel":
-                channelHandler.leaveChannel(session, message);
+                channelManager.leaveChannel(session, message);
                 break;
             default:
-                throw new IllegalArgumentException("JsonEngine: " + messageType);
+                throw new IllegalArgumentException("JsonManager: " + messageType);
         }
     }
 }

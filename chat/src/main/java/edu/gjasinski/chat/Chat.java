@@ -8,14 +8,14 @@ public class Chat {
     public static void main(String[] args) {
         try {
             Repository repository = new Repository();
-            ChatHandler chatHandler = new ChatHandler(repository);
-            ChannelHandler channelHandler = new ChannelHandler(chatHandler, repository);
-            JsonEngine jsonEngine = new JsonEngine(chatHandler, channelHandler, repository);
+            ChatManager chatManager = new ChatManager(repository);
+            ChannelManager channelManager = new ChannelManager(chatManager, repository);
+            JsonManager jsonManager = new JsonManager(chatManager, channelManager, repository);
 
             repository.addChannel("Chatbot");
 
             staticFileLocation("/public");
-            webSocket("/chat", jsonEngine);
+            webSocket("/chat", jsonManager);
             init();
         }catch (Exception ex){
             System.out.print(ex.toString());
