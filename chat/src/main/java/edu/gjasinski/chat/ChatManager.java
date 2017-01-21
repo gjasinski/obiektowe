@@ -10,14 +10,14 @@ import java.util.Date;
 
 import static j2html.TagCreator.*;
 
-public class ChatManager {
+class ChatManager {
     private Repository repository;
 
-    public ChatManager(Repository repository){
+    ChatManager(Repository repository){
         this.repository = repository;
     }
 
-    public void broadcastMessage(String channelName, String sender, String message) {
+    void broadcastMessage(String channelName, String sender, String message) {
         Channel channel = repository.getChannel(channelName);
 
         channel.getUserMap().values().stream().map(User::getSession).filter(Session::isOpen).forEach(session -> {
@@ -28,8 +28,8 @@ public class ChatManager {
                         .put("channelList", repository.getChannelSet())
                         .put("channelName", channelName)
                 ));
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ex) {
+                System.out.println(ex.toString());
             }
         });
     }
@@ -42,23 +42,23 @@ public class ChatManager {
         ).render();
     }
 
-    public void refreshChannelList(Session user) {
+    void refreshChannelList(Session user) {
         try{
             user.getRemote().sendString(String.valueOf(new JSONObject()
                     .put("refresh", "channel_list")
                     .put("channelList", repository.getChannelSet())));
         }
-        catch (Exception e) {
-            e.printStackTrace();
+        catch (Exception ex) {
+            System.out.println(ex.toString());
         }
     }
 
-    public void refreshChannelListAllUsers(){
+    void refreshChannelListAllUsers(){
         repository.getUserCollection().stream().map(User::getSession)
                 .forEach(this::refreshChannelList);
     }
 
-    public void sendActiveNameChannel(Session user) {
+    void sendActiveNameChannel(Session user) {
         String channelName = "";
 
         for (Channel channel: repository.getChannelCollection()) {
@@ -77,12 +77,12 @@ public class ChatManager {
                     .put("refresh", "active_channel")
                     .put("channelName", channelName)));
         }
-        catch (Exception e) {
-            e.printStackTrace();
+        catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
-    public void createUsername(Session session, String username) throws Exception {
+    void createUsername(Session session, String username) throws Exception {
         try{
             repository.addUser(session, username);
             refreshChannelList(session);

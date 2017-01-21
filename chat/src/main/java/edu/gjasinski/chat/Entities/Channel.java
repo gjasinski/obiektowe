@@ -17,7 +17,6 @@ public class Channel {
     private String channelName;
 
     @Getter
-    @Setter
     private Map<String, User> userMap;
 
     public void addUserToChannel(String username, User user){
@@ -26,7 +25,6 @@ public class Channel {
         }
         else{
             userMap.put(username, user);
-            System.out.println("dodalem nowego czloka");
         }
     }
 

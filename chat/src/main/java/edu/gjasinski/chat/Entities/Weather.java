@@ -16,6 +16,6 @@ public class Weather {
 
     @Override
     public String toString(){
-        return "Weather in " + city + ": " + descriptionWeather + " " + temperatureWeather + " " + units;
+        return "Weather in " + city + ": " + descriptionWeather + " and " + temperatureWeather + " " + units;
     }
 }

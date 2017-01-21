@@ -7,13 +7,13 @@ import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 import org.json.JSONObject;
 
 @WebSocket
-public class JsonManager {
+class JsonManager {
     private ChatManager chatManager;
     private ChannelManager channelManager;
     private Repository repository;
     private BotManager botManager;
 
-    public JsonManager(ChatManager chatManager, ChannelManager channelManager, Repository repository) throws Exception{
+    JsonManager(ChatManager chatManager, ChannelManager channelManager, Repository repository) throws Exception{
         this.chatManager = chatManager;
         this.channelManager = channelManager;
         this.repository = repository;
@@ -23,12 +23,11 @@ public class JsonManager {
     @OnWebSocketClose
     public void onClose(Session user, int statusCode, String reason) {
         try {
-            System.out.print("AAAAAA");
             repository.getUserChannelCollection(user).forEach(channel -> chatManager.broadcastMessage(
                     channel.getChannelName(), "Server", repository.getUsername(user) + " left the chat"));
             repository.removeUser(user);
         }catch (IllegalArgumentException ex){
-            System.out.println("OnWebSocketClose - " + ex.toString());
+            System.out.println(ex.toString());
         }
     }
 
@@ -39,16 +38,14 @@ public class JsonManager {
         }
         catch (Exception ex){
             System.out.print(ex.toString());
-            ex.printStackTrace();
         }
     }
 
 
-    public void processJson(Session session, String json) throws Exception {
+    private void processJson(Session session, String json) throws Exception {
         JSONObject jsonObject = new JSONObject(json);
         String messageType = jsonObject.getString("messageType");
         String message = jsonObject.getString("message");
-        System.out.println(jsonObject.toString());
         switch (messageType){
             case "username" :
                 chatManager.createUsername(session, message);
