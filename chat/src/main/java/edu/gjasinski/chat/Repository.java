@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Repository {
@@ -50,11 +49,21 @@ public class Repository {
     public void addUserToChannel(Session user, String channelName){
         String username = getUsername(user);
         Channel channel = channelMap.get(channelName);
-        channel.addUserToChannel(username, usernameToUser.get(username));
+        if(channel.isMember(username)){
+            throw new IllegalArgumentException("User already joined channel");
+        }
+        else {
+            channel.addUserToChannel(username, usernameToUser.get(username));
+        }
     }
 
     public String getUsername(Session session){
-        return sessionToUser.get(session).getUsername();
+        if(sessionToUser.containsKey(session)) {
+            return sessionToUser.get(session).getUsername();
+        }
+        else{
+            throw new IllegalArgumentException("There is no user with this session");
+        }
     }
 
     public void removeUser(Session user){
@@ -80,7 +89,12 @@ public class Repository {
     }
 
     public Channel getChannel(String channelName){
-        return channelMap.get(channelName);
+        if(channelMap.containsKey(channelName)) {
+            return channelMap.get(channelName);
+        }
+        else{
+            throw new IllegalArgumentException("There is no channel with this name");
+        }
     }
 
     public Set<String> getUserSet(){

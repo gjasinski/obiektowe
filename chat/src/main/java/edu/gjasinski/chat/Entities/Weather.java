@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+import java.text.DecimalFormat;
+
 @Builder
 @Getter
 @EqualsAndHashCode(exclude = {"descriptionWeather", "temperatureWeather"} )
@@ -16,6 +18,6 @@ public class Weather {
 
     @Override
     public String toString(){
-        return "Weather in " + city + ": " + descriptionWeather + " and " + temperatureWeather + " " + units;
+        return "Weather in " + city + ": " + descriptionWeather + " and " + new DecimalFormat("#.##").format(temperatureWeather) + " " + units;
     }
 }
