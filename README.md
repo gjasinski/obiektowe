@@ -5,7 +5,7 @@ Dependencies: JUnit, SpockFramework, json.org, Spark Framework, Lombok
 
 This repository contains:
 - carApp - introduction to course. 
-- Konstytucja - reading and processing text. Contains tests written in Spock.
+- Konstytucja - reading and processing The Constitution of the Republic of Poland. Contains tests written in Spock.
 - WydatkiPoselskie - doawnloading and processing Json. Contains tests written in Spock.
 - chat - chat based on Spark framework with lombok.
 
