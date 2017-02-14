@@ -1,5 +1,5 @@
 # Object oriented programming
-Object oriented programming course in AGH UST in Java
+Object oriented programming course at AGH UST in Java
 
 Dependencies: JUnit, SpockFramework, json.org, Spark Framework, Lombok
 
